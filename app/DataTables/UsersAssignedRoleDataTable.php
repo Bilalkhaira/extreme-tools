@@ -31,7 +31,7 @@ class UsersAssignedRoleDataTable extends DataTable
             ->addColumn('action', function (User $user) {
                 return view('pages.apps.user-management.roles.columns._actions', compact('user'));
             })
-            ->setRowId('uid');
+            ->setRowId('id');
     }
 
     /**
@@ -66,7 +66,7 @@ class UsersAssignedRoleDataTable extends DataTable
     public function getColumns(): array
     {
         return [
-            Column::make('uid'),
+            Column::make('id'),
             Column::make('user')->addClass('d-flex align-items-center')->name('name'),
             Column::make('name'),
             Column::make('created_at')->title('Joined Date')->addClass('text-nowrap'),

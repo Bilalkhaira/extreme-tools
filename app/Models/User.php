@@ -17,7 +17,7 @@ class User extends Authenticatable implements CanResetPassword
     use HasApiTokens, HasFactory, Notifiable, Billable;
     use HasRoles;
 
-    protected $primaryKey = 'uid';
+    // protected $primaryKey = 'uid';
 
     /**
      * The attributes that are mass assignable.

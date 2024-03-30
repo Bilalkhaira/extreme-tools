@@ -30,7 +30,7 @@ class UserProfileController extends Controller
         }
         $imgpath = public_path('images/profile/');
         if (empty($request->avatar)) {
-            $updateimage = $user->avatar;
+            $updateimage = $user->avatar ?? '';
         } else {
             $imagePath =  $imgpath . $user->avatar;
             if (File::exists($imagePath)) {

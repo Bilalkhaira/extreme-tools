@@ -35,7 +35,7 @@ class UsersDataTable extends DataTable
             ->addColumn('action', function (User $user) {
                 return view('pages.apps.user-management.users.columns._actions', compact('user'));
             })
-            ->setRowId('uid');
+            ->setRowId('id');
     }
 
 
