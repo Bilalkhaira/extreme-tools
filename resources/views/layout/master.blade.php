@@ -34,8 +34,8 @@
       rel="stylesheet"
     />
     <script src="https://cdn.jsdelivr.net/npm/tom-select/dist/js/tom-select.complete.min.js"></script>
-
-    {!! includeFavicon() !!}
+    <link rel="shortcut icon" href="{{ asset('assets/media/logos/x_logo.ico') }}">
+    {{-- {!! includeFavicon() !!} --}}
 
     <!--begin::Fonts-->
     {!! includeFonts() !!}
