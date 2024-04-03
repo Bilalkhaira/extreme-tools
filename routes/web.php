@@ -13,6 +13,7 @@ use App\Http\Controllers\UserProfileController;
 use App\Http\Controllers\SellerRequestController;
 use App\Http\Controllers\Auth\SocialiteController;
 use App\Http\Controllers\ContactRequestController;
+use App\Http\Controllers\XtremeToolUserController;
 use App\Http\Controllers\SubcriptionPlanController;
 use App\Http\Controllers\Apps\RoleManagementController;
 use App\Http\Controllers\Apps\UserManagementController;
@@ -85,6 +86,9 @@ Route::middleware(['auth', 'verified', 'setlocale'])->group(function () {
     Route::post('/categories-update', [CategoriesController::class, 'update'])->name('categories.update');
     Route::resource('tags', TagsController::class);
     Route::post('/tags-update', [TagsController::class, 'update'])->name('tags.update');
+
+    Route::resource('xtreme-tools-users', XtremeToolUserController::class);
+    Route::post('/xtreme-tools-users-update', [XtremeToolUserController::class, 'update'])->name('xtreme-tools-users.update');
 
 });
 

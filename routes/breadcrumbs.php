@@ -111,6 +111,11 @@ Breadcrumbs::for('categories', function (BreadcrumbTrail $trail) {
     $trail->push('Categories', route('categories.index'));
 });
 
+Breadcrumbs::for('xtreme-tools-users', function (BreadcrumbTrail $trail) {
+    $trail->parent('dashboard');
+    $trail->push('Xtreme Tools Users', route('xtreme-tools-users.index'));
+});
+
 Breadcrumbs::for('tags', function (BreadcrumbTrail $trail) {
     $trail->parent('dashboard');
     $trail->push('tags', route('tags.index'));

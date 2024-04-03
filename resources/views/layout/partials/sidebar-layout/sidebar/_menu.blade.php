@@ -67,6 +67,17 @@
 							<span class="menu-bullet">
 								<span class="bullet bullet-dot"></span>
 							</span>
+							<span class="menu-title">Admin Users</span>
+						</a>
+						<!--end:Menu link-->
+					</div>
+
+					<div class="menu-item">
+						<!--begin:Menu link-->
+						<a class="menu-link {{ request()->routeIs('xtreme-tools-users.*') ? 'active' : '' }}" href="{{ route('xtreme-tools-users.index') }}">
+							<span class="menu-bullet">
+								<span class="bullet bullet-dot"></span>
+							</span>
 							<span class="menu-title">Users</span>
 						</a>
 						<!--end:Menu link-->
@@ -159,7 +170,7 @@
 				<!--begin:Menu link-->
 				<a class="menu-link" href="{{ route('subcription-plan.index') }}">
 					<span class="menu-icon">{!! getIcon('book', 'fs-2') !!}</span>
-					<span class="menu-title">Subcription Plan</span>
+					<span class="menu-title">Subscription Plan</span>
 				</a>
 				<!--end:Menu link-->
 			</div>
