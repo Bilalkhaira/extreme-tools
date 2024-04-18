@@ -163,6 +163,14 @@
 				</a>
 				<!--end:Menu link-->
 			</div>
+			<div class="menu-item">
+				<!--begin:Menu link-->
+				<a class="menu-link {{ request()->routeIs('tools.*') ? 'active' : '' }}"  href="{{ route('tools.index') }}">
+					<span class="menu-icon">{!! getIcon('code', 'fs-2') !!}</span>
+					<span class="menu-title">Tools</span>
+				</a>
+				<!--end:Menu link-->
+			</div>
 
 
 			

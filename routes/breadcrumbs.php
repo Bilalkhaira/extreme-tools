@@ -101,6 +101,15 @@ Breadcrumbs::for('blogs-view', function (BreadcrumbTrail $trail) {
     $trail->parent('blogs');
     $trail->push('View', route('blogs.index'));
 });
+Breadcrumbs::for('tools', function (BreadcrumbTrail $trail) {
+    $trail->parent('dashboard');
+    $trail->push('Tools', route('tools.index'));
+});
+
+Breadcrumbs::for('tools-view', function (BreadcrumbTrail $trail) {
+    $trail->parent('tools');
+    $trail->push('View', route('tools.index'));
+});
 Breadcrumbs::for('subcription-plan', function (BreadcrumbTrail $trail) {
     $trail->parent('dashboard');
     $trail->push('Subcription Plans', route('subcription-plan.index'));

@@ -7,6 +7,7 @@ use App\Http\Controllers\BlogController;
 use App\Http\Controllers\PlanController;
 use App\Http\Controllers\TagsController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\AdminToolsController;
 use App\Http\Controllers\CategoriesController;
 use App\Http\Controllers\CarRequestsController;
 use App\Http\Controllers\UserProfileController;
@@ -90,6 +91,9 @@ Route::middleware(['auth', 'verified', 'setlocale'])->group(function () {
     Route::resource('xtreme-tools-users', XtremeToolUserController::class);
     Route::post('/xtreme-tools-users-update', [XtremeToolUserController::class, 'update'])->name('xtreme-tools-users.update');
 
+    Route::resource('tools', AdminToolsController::class);
+    Route::post('/tools-edit', [AdminToolsController::class, 'edit'])->name('tools.edit');
+    Route::post('/tools-update', [AdminToolsController::class, 'update'])->name('toolUpdate');
 });
 
 Route::get('/error', function () {
