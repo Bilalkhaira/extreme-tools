@@ -20,14 +20,14 @@
             @include('partials/widgets/cards/_widget-19')
         </div>
 
-        {{-- <div class="col-md-6 col-lg-6 col-xl-6 col-xxl-3">
+        <div class="col-md-6 col-lg-6 col-xl-6 col-xxl-3">
             @include('partials/widgets/cards/_widget-20')
-        </div> --}}
+        </div>
         <!--end::Col-->
         <!--begin::Col-->
-        {{-- <div class="col-md-6 col-lg-6 col-xl-6 col-xxl-3">
+        <div class="col-md-6 col-lg-6 col-xl-6 col-xxl-3">
             @include('partials/widgets/cards/_widget-17')
-        </div> --}}
+        </div>
         <!--end::Col-->
         <!--begin::Col-->
         

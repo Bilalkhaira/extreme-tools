@@ -5,14 +5,14 @@
 		<!--begin::Title-->
 		<div class="card-title d-flex flex-column">
 			<!--begin::Amount-->
-			@if(!empty($sellers))
-			<span class="fs-2hx fw-bold text-white me-2 lh-1 ls-n2">{{ count($sellers)}}</span>
+			@if(!empty($tools))
+			<span class="fs-2hx fw-bold text-white me-2 lh-1 ls-n2">{{ count($tools)}}</span>
 			@else
 			<span class="fs-2hx fw-bold text-white me-2 lh-1 ls-n2">0</span>
 			@endif
 			<!--end::Amount-->
 			<!--begin::Subtitle-->
-			<span class="text-white opacity-75 pt-1 fw-semibold fs-6">Total Seller Requests</span>
+			<span class="text-white opacity-75 pt-1 fw-semibold fs-6">Total Tools</span>
 			<!--end::Subtitle-->
 		</div>
 		<!--end::Title-->
