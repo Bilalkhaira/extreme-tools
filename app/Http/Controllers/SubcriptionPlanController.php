@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use App\Models\SubscriptionPlan;
 use App\DataTables\SubcriptionPlanDataTable;
+use Illuminate\Support\Facades\DB;
 
 class SubcriptionPlanController extends Controller
 {
@@ -16,6 +17,26 @@ class SubcriptionPlanController extends Controller
      */
     public function index(SubcriptionPlanDataTable $dataTable)
     {
+        $planId = 'basic';
+        // $tools = Tool::select('tools.id as tool_id', 'tools.name as tool_name', 'tool_quota.quota as tool_quoto', 'subscription_plans.id as plan_id', 'subscription_plans.name as plan_name')
+        //         ->join('tool_quota', 'tools.id', '=', 'tool_quota.tool_id')
+        //         ->join('subscription_plans', 'tool_quota.plan', '=', 'subscription_plans.id')
+        //         ->where('tool_quota.plan', $planId)
+        //         ->get();
+        // $tools = Tool::select('tools.id as tool_id', 'tools.name as tool_name', DB::raw('tool_quota.quota as tool_quota'))
+        //         ->leftJoin('tool_quota', function($join) use ($planId) {
+        //             $join->on('tools.id', '=', 'tool_quota.tool_id')
+        //                 ->where('tool_quota.plan', '=', $planId);
+        //         })
+        //         ->get();
+        // $tools = Tool::select('tools.id as tool_id', 'tools.name as tool_name', DB::raw('tool_quota.quota as tool_quota'), 'subscription_plans.id as plan_id', 'subscription_plans.name as plan_name')
+        //             ->leftJoin('tool_quota', function($join) use ($planId) {
+        //                 $join->on('tools.id', '=', 'tool_quota.tool_id')
+        //                     ->where('tool_quota.plan', '=', $planId);
+        //             })
+        //             ->leftJoin('subscription_plans', 'tool_quota.plan', '=', 'subscription_plans.id')
+        //             ->get();
+        // dd($tools);
         return $dataTable->render('pages.subcription-plan.list');
     }
 
@@ -115,36 +136,56 @@ class SubcriptionPlanController extends Controller
 
     public function subcriptionPlanTools(Request $request)
     {
-        $allTools = Tool::get();
-        $plan = SubscriptionPlan::with('tools')->find($request->id);
-        $alreadySelectedTools = [];
-        foreach($plan->tools as $tools) {
-            
-           $alreadySelectedTools[] = $tools->id ?? '';
-        }
-       return view('pages.subcription-plan.subcription-plan-tools', compact(['allTools', 'alreadySelectedTools', 'plan']));
+    //     $allTools = Tool::get();
+    //     $plan = SubscriptionPlan::with('tools')->find($request->id);
+    //     $alreadySelectedTools = [];
+    //     foreach($plan->tools as $tools) {
+    //        $alreadySelectedTools[] = $tools->id ?? '';
+    //     }
+    //    return view('pages.subcription-plan.subcription-plan-tools', compact(['allTools', 'alreadySelectedTools', 'plan']));
+    $plan = SubscriptionPlan::with('tools')->find($request->id);
+    $planId = $request->id;    
+    $allTools = Tool::select('tools.id as tool_id', 'tools.name as tool_name', DB::raw('tool_quota.quota as tool_quota'), 'subscription_plans.id as plan_id', 'subscription_plans.name as plan_name')
+                ->leftJoin('tool_quota', function($join) use ($planId) {
+                    $join->on('tools.id', '=', 'tool_quota.tool_id')
+                        ->where('tool_quota.plan', '=', $planId);
+                })
+                ->leftJoin('subscription_plans', 'tool_quota.plan', '=', 'subscription_plans.id')
+                ->get();
+        return view('pages.subcription-plan.subcription-plan-tools', compact(['allTools', 'plan']));
     }
 
     public function subcriptionPlanToolsUpdate(Request $request)
     {
         try {
+            // $selectedToolIds = $request->input('checkbox', []);
+            // if(!empty($selectedToolIds)){
+            //     ToolQuota::where('plan', $request->planId)->delete();
+            //     foreach (array_keys($selectedToolIds) as $key) 
+            //     {
+            //         ToolQuota::create([
+            //             'tool_id' => $key,
+            //             'plan' => $request->planId,
+            //             'createdAt' => Carbon::now() ?? '',
+            //             'updatedAt' => Carbon::now() ?? '',
+            //         ]);
+            //     }
+            // }
 
-            $selectedToolIds = $request->input('checkbox', []);
-            if(!empty($selectedToolIds)){
                 ToolQuota::where('plan', $request->planId)->delete();
-                foreach (array_keys($selectedToolIds) as $key) 
+                foreach ($request->tool_ids as $key => $tool) 
                 {
                     ToolQuota::create([
-                        'tool_id' => $key,
+                        'tool_id' => $tool,
                         'plan' => $request->planId,
+                        'quota' => $request->tools_quota[$key],
                         'createdAt' => Carbon::now() ?? '',
                         'updatedAt' => Carbon::now() ?? '',
                     ]);
                 }
-            }
             toastr()->success('Update Successfully');
-            // return redirect()->route('subcription-plan.index');
-            return redirect()->back();
+            // return redirect()->back();
+            return redirect()->route('subcription-plan.index');
             
         } catch (Exception $e) {
             toastr()->error($e->getMessage());

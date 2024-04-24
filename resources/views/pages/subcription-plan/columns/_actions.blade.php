@@ -12,19 +12,41 @@
     </div>
 
     <div class="menu-item px-3">
-        <form class="user_delete" action="{{ route('subcription-plan.destroy', $user->id) }}" method="POST">
+        <form class="user_delete submit-form" action="{{ route('subcription-plan.destroy', $user->id) }}" method="POST">
             @csrf
             @method('DELETE')
-            <button type="submit" class="menu-link px-3 dlt_btn" onclick="return confirm('Are you sure?')">Delete</button>
+            <button type="submit" class="menu-link px-3 dlt_btn">Delete</button>
         </form>
         
     </div>
     <div class="menu-item px-3">
         <input type="hidden" value="{{ $user->id ?? ''}}"  id="blogUpdatedId" >
         <a href="#" class="menu-link px-3" onclick="mangaeTools(this)" data-bs-toggle="modal" data-bs-target="#manageTools">
-            Manage Tools
+            Manage Plan
         </a>
     </div>
 </div>
+<script>
+    $(document).ready(function () {
+         $('.submit-form').submit(function (event) {
+             event.preventDefault();
+             var form = $(this);
+ 
+             Swal.fire({
+                 title: 'Are you sure?',
+                 text: "You won't be able to revert this!",
+                 icon: 'warning',
+                 showCancelButton: true,
+                 confirmButtonText: 'Yes, delete it!',
+                 confirmButtonColor: '#dc3545',
+                 cancelButtonText: 'Cancel'
+             }).then((result) => {
+                 if (result.isConfirmed) {
+                     form.unbind('submit').submit();
+                 }
+             });
+         });
+     });
+ </script>
 
 

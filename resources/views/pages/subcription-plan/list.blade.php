@@ -134,9 +134,6 @@
             });
         });
 
-
-
-
         function AddProduct() {
             $('#ProductModal').modal('show');
         }
@@ -183,6 +180,7 @@
                 }
             });
         }
+       
     </script>
     @endpush
 
