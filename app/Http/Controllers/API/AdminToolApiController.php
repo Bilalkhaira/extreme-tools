@@ -3,31 +3,31 @@
 namespace App\Http\Controllers\API;
 
 use Exception;
-use App\Http\Controllers\Controller;
 use App\Models\Blog;
+use App\Models\AdminTool;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 
-class BlogApiController extends Controller
+class AdminToolApiController extends Controller
 {
     public function index()
     {
         try{
 
-           $blogs = Blog::all();
-           foreach($blogs as $blog)
+           $tools = AdminTool::all();
+           foreach($tools as $tool)
            {
             // $blog['img'] = public_path('images/blog/').$blog->img;
             
-            if(!empty($blog['img'])){
-               $blog['img'] = 'https://admin.xtreme.tools/images/blog/'.$blog->img;
+            if(!empty($tool['img'])){
+               $tool['img'] = 'https://admin.xtreme.tools/images/tools/'.$tool->img;
             } 
             
            }
 
-            // return response()->json($blogs);
             $success['status'] =  200;
-            $success['data'] =  $blogs;
+            $success['data'] =  $tools;
             return response()->json($success);
 
         }catch (Exception $e){
@@ -40,19 +40,14 @@ class BlogApiController extends Controller
     public function show($id)
     {
         try{
-           $blog = Blog::find($id);
-           if(!empty($blog['img'])){
-               $blog['img'] = 'https://admin.xtreme.tools/images/blog/'.$blog->img;
+            $tool = AdminTool::find($id);
+           if(!empty($tool['img'])){
+               $tool['img'] = 'https://admin.xtreme.tools/images/tool/'.$tool->img;
            } 
-        //    if(!empty($blog)){
-        //          return response()->json($blog);
-        //    } else {
-        //      $success['status'] =  404;
-        //     return response()->json($success);
-        //    }
-            $success['status'] =  200;
-           $success['data'] =  $blog;
+           $success['status'] =  200;
+           $success['data'] =  $tool;
            return response()->json($success);
+           
            
         }catch (Exception $e){
 

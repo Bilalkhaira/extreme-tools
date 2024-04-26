@@ -67,7 +67,7 @@
                                 <div class="pb-5 fs-6">
                                     <!--begin::Details item-->
                                     <div class="row">
-                                        <div class="col-md-3"><div class="fw-bold mt-5">Blog ID</div></div>
+                                        <div class="col-md-3"><div class="fw-bold mt-5">Tool ID</div></div>
                                         <div class="col-md-9"><div class="text-gray-600 mt-5">{{ $tool->id ?? '' }}</div></div>
                                     </div>
 

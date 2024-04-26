@@ -9,6 +9,7 @@ use App\Http\Controllers\API\UserController;
 use App\Http\Controllers\API\CarApiController;
 use App\Http\Controllers\API\BlogApiController;
 use App\Http\Controllers\API\CarRequestController;
+use App\Http\Controllers\API\AdminToolApiController;
 use App\Http\Controllers\API\SellerRequestApiController;
 use App\Http\Controllers\API\ContactRequestApiController;
 
@@ -88,8 +89,10 @@ Route::get('/validate-token/{token?}/{user_id?}', [UserController::class, 'valid
 // Route::post('forget-password', [UserController::class, 'submitForgetPasswordForm']);
 // Route::post('reset-password', [UserController::class, 'submitResetPasswordForm']);
 
-Route::get('/get-all-blogs-data', [BlogApiController::class, 'index']);
-Route::get('/get-blog-data/{id}', [BlogApiController::class, 'show']);
+Route::get('/tool_list', [AdminToolApiController::class, 'index']);
+Route::get('/tool_detail/{id}', [AdminToolApiController::class, 'show']);
+Route::get('/blog_list', [BlogApiController::class, 'index']);
+Route::get('/blog_detail/{id}', [BlogApiController::class, 'show']);
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::post('update-user-profile', [UserController::class, 'updateUserProfile']);

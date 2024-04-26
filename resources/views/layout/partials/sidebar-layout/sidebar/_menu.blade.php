@@ -171,6 +171,14 @@
 				</a>
 				<!--end:Menu link-->
 			</div>
+			<div class="menu-item">
+				<!--begin:Menu link-->
+				<a class="menu-link {{ request()->routeIs('media.*') ? 'active' : '' }}"  href="{{ route('media.index') }}">
+					<span class="menu-icon">{!! getIcon('code', 'fs-2') !!}</span>
+					<span class="menu-title">Media</span>
+				</a>
+				<!--end:Menu link-->
+			</div>
 
 
 			

@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Artisan;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\PlanController;
 use App\Http\Controllers\TagsController;
+use App\Http\Controllers\MediaController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\AdminToolsController;
 use App\Http\Controllers\CategoriesController;
@@ -94,6 +95,7 @@ Route::middleware(['auth', 'verified', 'setlocale'])->group(function () {
     Route::resource('tools', AdminToolsController::class);
     Route::post('/tools-edit', [AdminToolsController::class, 'edit'])->name('tools.edit');
     Route::post('/tools-update', [AdminToolsController::class, 'update'])->name('toolUpdate');
+    Route::resource('media', MediaController::class);
 });
 
 Route::get('/error', function () {
