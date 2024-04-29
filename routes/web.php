@@ -72,7 +72,7 @@ Route::middleware(['auth', 'verified', 'setlocale'])->group(function () {
     Route::resource('blogs', BlogController::class);
     Route::post('/blogs-edit', [BlogController::class, 'blogsEdit'])->name('blogs.edit');
     Route::resource('subcription-plan', SubcriptionPlanController::class);
-    
+    Route::post('/subcription-plan-edit', [SubcriptionPlanController::class, 'planEdit'])->name('subcription-plan.edit');
     Route::post('/subcription-plan-update', [SubcriptionPlanController::class, 'update'])->name('subcription-plan.Update');
     Route::post('/subcription-plan-tools', [SubcriptionPlanController::class, 'subcriptionPlanTools'])->name('subcription-plan.tools');
     Route::post('/subcription-plan-tools-update', [SubcriptionPlanController::class, 'subcriptionPlanToolsUpdate'])->name('subcription-plan.tools.update');

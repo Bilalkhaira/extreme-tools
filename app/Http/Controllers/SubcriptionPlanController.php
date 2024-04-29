@@ -2,13 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Tag;
+use App\Models\Blog;
 use App\Models\Tool;
+use App\Models\Category;
 use App\Models\ToolQuota;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use App\Models\SubscriptionPlan;
-use App\DataTables\SubcriptionPlanDataTable;
 use Illuminate\Support\Facades\DB;
+use App\DataTables\SubcriptionPlanDataTable;
 
 class SubcriptionPlanController extends Controller
 {
@@ -53,6 +56,7 @@ class SubcriptionPlanController extends Controller
      */
     public function store(Request $request)
     {
+        // dd($request->all());
         try {
             $lowercaseString = strtolower($request->title);
             $convertedString = str_replace(' ', '_', $lowercaseString);
@@ -61,6 +65,11 @@ class SubcriptionPlanController extends Controller
                 'name' => $request->title ?? '',
                 'createdAt' => Carbon::now() ?? '',
                 'updatedAt' => Carbon::now() ?? '',
+                'original_price' => $request->price  ?? '',
+                'level' => $request->plan_level  ?? '',
+                'subscription_interval' => $request->plan  ?? '',
+                'discounted_price' => $request->discounted_price  ?? '',
+                'features' => json_encode($request->features),
             ]);
             toastr()->success('Created Successfully');
             return redirect()->route('subcription-plan.index');
@@ -76,6 +85,12 @@ class SubcriptionPlanController extends Controller
     public function show(string $id)
     {
         //
+    }
+
+    public function planEdit(Request $request)
+    {
+        $plan = SubscriptionPlan::find($request->id);
+        return view('pages.subcription-plan.edit', compact(['plan']));
     }
 
     /**
@@ -105,6 +120,11 @@ class SubcriptionPlanController extends Controller
             $updatedRow->update([
                 'name' => $request->title ?? '',
                 'updatedAt' => Carbon::now() ?? '',
+                'original_price' => $request->price  ?? '',
+                'level' => $request->plan_level  ?? '',
+                'subscription_interval' => $request->plan  ?? '',
+                'discounted_price' => $request->discounted_price  ?? '',
+                'features' => json_encode($request->features),
             ]);
             toastr()->success('Update Successfully');
             return redirect()->route('subcription-plan.index');
