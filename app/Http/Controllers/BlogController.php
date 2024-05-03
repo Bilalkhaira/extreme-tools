@@ -51,7 +51,6 @@ class BlogController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request->all());
         try {
 
             $imgpath = public_path('images/blog/');
@@ -59,6 +58,12 @@ class BlogController extends Controller
                 $file = $request->avatar;
                 $fileName = time() . '.' . $file->clientExtension();
                 $file->move($imgpath, $fileName);
+            }
+
+            if (!empty($request->thumbnail)) {
+                $thumbnailFile = $request->thumbnail;
+                $thumbnailName = time() . '.' . $thumbnailFile->clientExtension();
+                $thumbnailFile->move($imgpath, $thumbnailName);
             }
 
             // $imageUrl = 'images/blog/' . $fileName;
@@ -73,9 +78,11 @@ class BlogController extends Controller
                 'created_by' => auth()->user()->id ?? '',
                 'title' => $request->title ?? '',
                 'description' => $request->description ?? '',
+                'short_description' => $request->short_description ?? '',
                 'categories' => json_encode($request->categories),
                 'tags' => json_encode($request->tags),
                 'img' => $fileName ?? '',
+                'thumbnail' => $thumbnailName ?? '',
                 'slug' => $slugValue ?? '',
             ]);
 
@@ -142,7 +149,6 @@ class BlogController extends Controller
      */
     public function blogUpdate(Request $request)
     {
-        // dd($request->all());
         try {
             $updatedRow = Blog::find($request->updateId);
             $imgpath = public_path('images/blog/');
@@ -163,6 +169,20 @@ class BlogController extends Controller
                 // $imageUrl = 'images/blog/' . $updateimage;
                 // $updateimage = asset($imageUrl);
             }
+            if (empty($request->thumbnail)) {
+                $updateThumbnail = $updatedRow->thumbnail;
+            } else {
+                $imagePath =  $imgpath . $updatedRow->thumbnail;
+                
+                if (File::exists($imagePath)) {
+                    File::delete($imagePath);
+                }
+                $destinationPath = $imgpath;
+                $fileThumbnail = $request->thumbnail;
+                $fileThumbnailName = time() . '.' . $fileThumbnail->clientExtension();
+                $fileThumbnail->move($destinationPath, $fileThumbnailName);
+                $updateThumbnail = $fileThumbnailName;
+            }
 
            
             $slug = $request->slug;
@@ -174,10 +194,12 @@ class BlogController extends Controller
             $updatedRow->update([
                 'title' => $request->title ?? '',
                 'description' => $request->description ?? '',
+                'short_description' => $request->short_description ?? '',
                 'categories' => json_encode($request->categories),
                 'tags' => json_encode($request->tags),
                 'img' => $updateimage ?? '',
                 'slug' => $slugValue ?? '',
+                'thumbnail' => $updateThumbnail ?? '',
             ]);
         } catch (Exception $e) {
             toastr()->error($e->getMessage());

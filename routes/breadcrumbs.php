@@ -105,6 +105,10 @@ Breadcrumbs::for('tools', function (BreadcrumbTrail $trail) {
     $trail->parent('dashboard');
     $trail->push('Tools', route('tools.index'));
 });
+Breadcrumbs::for('media', function (BreadcrumbTrail $trail) {
+    $trail->parent('dashboard');
+    $trail->push('Media', route('media.index'));
+});
 
 Breadcrumbs::for('tools-view', function (BreadcrumbTrail $trail) {
     $trail->parent('tools');

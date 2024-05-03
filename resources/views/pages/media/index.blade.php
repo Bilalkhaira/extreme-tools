@@ -1,105 +1,177 @@
 <x-default-layout>
 
     @section('title')
-    Tools
+        Media
     @endsection
 
     @section('breadcrumbs')
-    {{ Breadcrumbs::render('tools') }}
+        {{ Breadcrumbs::render('media') }}
     @endsection
     <div class="card">
-        <!--begin::Card header-->
         <div class="card-header border-0 pt-6">
-            <!--begin::Card title-->
-            <div class="card-title">
-                <!--begin::Search-->
+            <div class="card-title" style="visibility: hidden">
                 <div class="d-flex align-items-center position-relative my-1">
                     {!! getIcon('magnifier', 'fs-3 position-absolute ms-5') !!}
-                    <input type="text" data-kt-user-table-filter="search" class="form-control form-control-solid w-250px ps-13" placeholder="Search Tools" id="mySearchInput" />
+                    <input type="text" data-kt-user-table-filter="search"
+                        class="form-control form-control-solid w-250px ps-13" placeholder="Search Tools"
+                        id="mySearchInput" />
                 </div>
-                <!--end::Search-->
             </div>
-            <!--begin::Card title-->
 
-            <!--begin::Card toolbar-->
             <div class="card-toolbar">
-                <!--begin::Toolbar-->
                 <div class="d-flex justify-content-end" data-kt-user-table-toolbar="base">
-                    <!--begin::Add user-->
-                    <a type="button" class="btn btn-primary bgColor" onclick="AddProduct()" data-bs-toggle="modal" data-bs-target="#ProductModal">
+                    <a type="button" class="btn btn-primary bgColor addImageBtn">
                         {!! getIcon('plus', 'fs-2', '', 'i') !!}
-                        Add Tool
+                        Add Images
                     </a>
-                    <!--end::Add user-->
                 </div>
-                <!--end::Toolbar-->
 
-                <!--begin::Modal-->
                 <livewire:user.add-user-modal></livewire:user.add-user-modal>
-                <!--end::Modal-->
             </div>
-            <!--end::Card toolbar-->
         </div>
-        <!--end::Card header-->
 
-        <!--begin::Card body-->
         <div class="card-body py-4">
-            <!--begin::Table-->
-            <div class="table-responsive">
+            <div class="table-responsive hideshow displayNone">
+                <form method="POST" action="{{ route('categories.store') }}" enctype="multipart/form-data">
+                    @csrf
+
+                    <div class="file-form" id="dropSection">
+                        <input name="img[]" id="fileInput" type="file" multiple accept="image/*"
+                            onchange="app.actions.handleFiles(this.files)">
+                        <label class="drop-content" for="fileInput">
+                            Drops file to attach, or click and select
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="18" fill="none"
+                                viewBox="0 0 24 20" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" />
+                            </svg>
+                        </label>
+
+                    </div>
+                    <div id="actionContainer" class="d-none"> </div>
+                    <div id="uploadedImage"></div>
+                    <div class="text-right">
+                        <button type="submit" class="btn btn-primary bgColor">Save</button>
+                        <button id="clearAllBtn" onclick="app.actions.clearAll()" type="button" class="btn">Clear</button>
+                        <button type="button" class="btn btn-secondary hideBtn">Close</button>
+                    </div>
+
+                </form>
             </div>
-            <!--end::Table-->
         </div>
-        <!--end::Card body-->
     </div>
-   
+    </div>
+
 
     @push('scripts')
-   
-    
-    <script>
-        document.getElementById('mySearchInput').addEventListener('keyup', function() {
-            window.LaravelDataTables['admin_tools-table'].search(this.value).draw();
-        });
-        document.addEventListener('livewire:load', function() {
-            Livewire.on('success', function() {
-                $('#kt_modal_add_user').modal('hide');
-                window.LaravelDataTables['admin_tools-table'].ajax.reload();
+        <script>
+            $('.addImageBtn').on('click', function(event) {
+                $('.hideshow').removeClass('displayNone');
             });
-        });
-
-        function AddProduct() {
-            $('#ProductModal').modal('show');
-        }
-
-        function EditBlog(anchor) {
-            $('#EditModal').modal('show');
-            var toolId = anchor.parentElement.querySelector("#blogUpdatedId").value;
-            $.ajaxSetup({
-                headers: {
-                    "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+            $('.hideBtn').on('click', function(event) {
+                $('.hideshow').addClass('displayNone');
+            });
+            const app = {
+                selector: {
+                    dropArea: document.getElementById("dropSection"),
+                    uploadedImages: document.getElementById("uploadedImage"),
                 },
-            });
+                actions: {
+                    highlightAdd: function() {
+                        app.selector.dropArea.classList.add('highlight')
+                    },
+                    highlightRemove: function() {
+                        app.selector.dropArea.classList.remove('highlight')
+                    },
+                    handleFiles: function(files) {
+                        files = [...files]
+                        files.forEach(app.actions.previewFile)
+                    },
+                    handleDrop: function(e) {
+                        var dt = e.dataTransfer
+                        var files = dt.files
 
-            $.ajax({
-                 url: "/tools/" + toolId + "/edit",
-                type: "GET",
-                dataType: "json",
+                        app.actions.handleFiles(files)
+                    },
+                    previewFile: function(file) {
+                        let reader = new FileReader()
+                        reader.readAsDataURL(file)
+                        reader.onloadend = function() {
+                            let elems =
+                                `<div class="image-content"><div class="image-wrapper"><img alt="${file.name}" src="${reader.result}"><span onclick="app.actions.imageDelete(this)">X</span></div></div>`;
+                            app.selector.uploadedImages.insertAdjacentHTML("beforeend", elems);
+                            app.selector.actionContainer.classList.remove('d-none')
+                        }
+                    },
+                    imageDelete: function(scope) {
+                        scope.parentNode.parentNode.remove();
+                        app.selector.uploadedImages.innerHTML == '' && app.selector.actionContainer.classList.add(
+                            'd-none');
+                    },
+                    clearAll: function() {
+                        app.selector.uploadedImages.innerHTML = '';
+                        app.selector.actionContainer.classList.add('d-none')
+                    },
+                    preventDefaults: function(e) {
+                        e.preventDefault()
+                        e.stopPropagation()
+                    },
+                    aspectRatio: function(w, h, mw, mh) {
+                        var ratio = w / h;
+                        if (mh * ratio < mw) {
+                            return [mw, mw / ratio];
+                        } else {
+                            return [mh * ratio, mh];
+                        }
+                    },
+                    resizeImages: function(base64Str, maxWidth, maxHeight) {
+                        return new Promise((resolve) => {
+                            let img = new Image()
+                            img.src = base64Str
+                            img.onload = () => {
+                                let canvas = document.createElement('canvas')
+                                let width = img.width
+                                let height = img.height
 
-                success: function(data) {
-                    $('#EditModal').modal('show');
-                    $('#edittitle').val(data.title);
-                    $('#editurl').val(data.url);
-                    $('#summernote1').val(data.description);
-                    $('body').find('#updateId').val(data.id);
+                                var newSize = app.actions.aspectRatio(width, height, maxWidth, maxHeight);
 
-                    var path = "{{ asset('images/tools/') }}"+"/"+data.img;
-                    var element = document.getElementById("blogImg");
-                    element.style.backgroundImage = "url("+ path + ")";
+                                width = newSize[0];
+                                height = newSize[1];
+
+                                canvas.width = width
+                                canvas.height = height
+                                let ctx = canvas.getContext('2d')
+                                ctx.drawImage(img, 0, 0, width, height)
+                                resolve(canvas.toDataURL())
+                            }
+                        })
+                    },
+                   
+                },
+                init: function() {
+                    app.selector.dropArea.addEventListener('drop', app.actions.handleDrop, false);
+
+                    ;
+                    ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+                        app.selector.dropArea.addEventListener(eventName, app.actions.preventDefaults, false)
+                        document.body.addEventListener(eventName, app.actions.preventDefaults, false)
+                    })
+
+                    ;
+                    ['dragenter', 'dragover'].forEach(eventName => {
+                        app.selector.dropArea.addEventListener(eventName, app.actions.highlightAdd, false)
+                    })
+
+                    ;
+                    ['dragleave', 'drop'].forEach(eventName => {
+                        app.selector.dropArea.addEventListener(eventName, app.actions.highlightRemove, false)
+                    })
                 }
-            });
-        }
-    </script>
+            }
 
+            app.init();
+        </script>
     @endpush
+    <link rel="stylesheet" href="{{ asset('assets/css/media.css') }}" />
 
 </x-default-layout>

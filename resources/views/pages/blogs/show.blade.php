@@ -111,6 +111,10 @@
                                         <div class="col-md-3"> <div class="fw-bold mt-5">Description</div></div>
                                         <div class="col-md-9"><div class="text-gray-600 mt-5">{!!  $blog->description ?? '' !!}</div></div>
                                     </div>
+                                    <div class="row mt-5 mb-5">
+                                        <div class="col-md-3"> <div class="fw-bold mt-5">Short Description</div></div>
+                                        <div class="col-md-9"><div class="text-gray-600 mt-5">{!!  $blog->short_description ?? '' !!}</div></div>
+                                    </div>
                                     
                                 </div>
                             </div>
