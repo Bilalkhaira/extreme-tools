@@ -74,7 +74,7 @@
                             <!--end::Card title-->
                             <!--begin::Card toolbar-->
                             <div class="card-toolbar">
-                                <a href="#" class="btn btn-sm btn-light-primary" data-bs-toggle="modal" data-bs-target="#kt_modal_update_details">Edit</a>
+                                <a href="#" class="btn btn-sm btn-light-primary theme_btn_bg" data-bs-toggle="modal" data-bs-target="#kt_modal_update_details">Edit</a>
                             </div>
                         </div>
                         <div class="card-body p-9 pt-4">

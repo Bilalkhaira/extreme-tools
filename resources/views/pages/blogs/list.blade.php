@@ -28,7 +28,7 @@
                 <!--begin::Toolbar-->
                 <div class="d-flex justify-content-end" data-kt-user-table-toolbar="base">
                     <!--begin::Add user-->
-                    <a type="button" class="btn btn-primary bgColor" onclick="AddProduct()" data-bs-toggle="modal"
+                    <a type="button" class="btn btn-primary theme_btn_bg" onclick="AddProduct()" data-bs-toggle="modal"
                         data-bs-target="#ProductModal">
                         {!! getIcon('plus', 'fs-2', '', 'i') !!}
                         Add Blog
@@ -221,7 +221,7 @@
                     <div class="modal-footer" id="ProductModalFooter">
                         <button type="reset" class="btn btn-light me-3" data-bs-dismiss="modal" aria-label="Close"
                             data-kt-users-modal-action="cancel">Discard</button>
-                        <button type="submit" class="btn btn-primary" data-kt-users-modal-action="submit">
+                        <button type="submit" class="btn btn-primary theme_btn_bg" data-kt-users-modal-action="submit">
                             <span class="indicator-label">Submit</span>
                             <span class="indicator-progress">Please wait...
                                 <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>

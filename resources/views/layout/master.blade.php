@@ -4,7 +4,7 @@
 
 <head>
     <base href="" />
-    <title>extreme-tools</title>
+    <title>Xtreme Tools</title>
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta charset="utf-8" />
     <meta name="description" content="" />

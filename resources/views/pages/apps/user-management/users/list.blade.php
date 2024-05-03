@@ -27,7 +27,7 @@
                 <!--begin::Toolbar-->
                 <div class="d-flex justify-content-end" data-kt-user-table-toolbar="base">
                     <!--begin::Add user-->
-                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#kt_modal_add_user">
+                    <button type="button" class="btn btn-primary theme_btn_bg" data-bs-toggle="modal" data-bs-target="#kt_modal_add_user">
                         {!! getIcon('plus', 'fs-2', '', 'i') !!}
                         Add User
                     </button>

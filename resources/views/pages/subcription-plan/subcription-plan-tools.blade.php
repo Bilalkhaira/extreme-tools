@@ -35,7 +35,7 @@
     
     <div class="modal-footer" id="ProductModalFooter">
         <button type="reset" class="btn btn-light me-3" data-bs-dismiss="modal" aria-label="Close" data-kt-users-modal-action="cancel">Discard</button>
-        <button type="submit" class="btn btn-primary" data-bs-dismiss="modal" aria-label="Close" data-kt-users-modal-action="cancel">
+        <button type="submit" class="btn btn-primary theme_btn_bg" data-bs-dismiss="modal" aria-label="Close" data-kt-users-modal-action="cancel">
             <span class="indicator-label">Submit</span>
         </button>
 

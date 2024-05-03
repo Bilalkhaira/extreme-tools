@@ -161,7 +161,7 @@
             <span class="indicator-progress">Please wait...
                 <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
         </button> --}}
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <button type="submit" class="btn btn-primary theme_btn_bg">Submit</button>
 
     </div>
 </form>

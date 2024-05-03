@@ -21,7 +21,7 @@
 
             <div class="card-toolbar">
                 <div class="d-flex justify-content-end" data-kt-user-table-toolbar="base">
-                    <a type="button" class="btn btn-primary bgColor" onclick="AddProduct()" data-bs-toggle="modal"
+                    <a type="button" class="btn btn-primary theme_btn_bg" onclick="AddProduct()" data-bs-toggle="modal"
                         data-bs-target="#ProductModal">
                         {!! getIcon('plus', 'fs-2', '', 'i') !!}
                         Add Plan
@@ -38,7 +38,7 @@
             </div>
         </div>
     </div>
-    <div id="ProductModal" class="modal fade show " tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+    <div id="ProductModal" class="modal fade show planModel" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
         aria-modal="true" aria-hidden="true" style="color: black;">
         <div class="modal-dialog modal-lg" id="ProductModalDialog">
             <div class="modal-content" id="ProductModalContent">
@@ -125,7 +125,7 @@
                             </div>
                             <div class="row">
                                 <div class="col-md-12">
-                                    <button class="btn btn-primary btn-sm float-right addMoreBtn">Add More Feature
+                                    <button class="btn btn-primary btn-sm float-right theme_btn_bg addMoreBtn">Add More Feature
                                     </button>
                                 </div>
                             </div>
@@ -134,7 +134,7 @@
                     <div class="modal-footer" id="ProductModalFooter">
                         <button type="reset" class="btn btn-light me-3" data-bs-dismiss="modal" aria-label="Close"
                             data-kt-users-modal-action="cancel">Discard</button>
-                        <button type="submit" class="btn btn-primary" data-kt-users-modal-action="submit">
+                        <button type="submit" class="btn btn-primary theme_btn_bg" data-kt-users-modal-action="submit">
                             <span class="indicator-label">Submit</span>
                             <span class="indicator-progress">Please wait...
                                 <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
@@ -147,7 +147,7 @@
             </div>
         </div>
     </div>
-    <div id="EditModal" class="modal fade show " tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+    <div id="EditModal" class="modal fade show planModel" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
         aria-modal="true" aria-hidden="true" style="color: black;">
         <div class="modal-dialog modal-lg" id="ProductModalDialog">
             <div class="modal-content" id="PlanEditModel">
@@ -167,7 +167,7 @@
                     <div class="modal-body">
                         <div class="row">
                             <div class="col-md-12">
-                                <button class="btn btn-primary btn-sm float-right addMoreBtn editAddMoreBtn">Add More Feature
+                                <button class="btn btn-primary btn-sm float-right theme_btn_bg addMoreBtn editAddMoreBtn">Add More Feature
                                 </button>
                             </div>
                         </div>
@@ -175,7 +175,7 @@
                     <div class="modal-footer" id="ProductModalFooter">
                         <button type="reset" class="btn btn-light me-3" data-bs-dismiss="modal" aria-label="Close"
                             data-kt-users-modal-action="cancel">Discard</button>
-                        <button type="submit" class="btn btn-primary" data-kt-users-modal-action="submit">
+                        <button type="submit" class="btn btn-primary theme_btn_bg" data-kt-users-modal-action="submit">
                             <span class="indicator-label">Submit</span>
                             <span class="indicator-progress">Please wait...
                                 <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
