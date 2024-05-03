@@ -4,14 +4,11 @@ namespace App\Http\Controllers;
 
 use File;
 use Exception;
-use App\Models\Tag;
-use App\Models\Blog;
+use App\Models\Media;
 use App\Models\Category;
-use App\Models\CarRequest;
-use App\Models\Notification;
+use Illuminate\Support\Arr;
 use Illuminate\Http\Request;
-use App\DataTables\BlogsDataTable;
-use PhpParser\Node\Expr\Cast\Bool_;
+use Illuminate\Support\Carbon;
 use App\Http\Controllers\Controller;
 
 class MediaController extends Controller
@@ -19,12 +16,10 @@ class MediaController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(BlogsDataTable $dataTable)
+    public function index()
     {
-        $categories = Category::get();
-        $tags = Tag::get();
-        
-        return view('pages.media.index', compact(['categories', 'tags']));
+        $images = Media::whereNull('deleted_at')->get();
+        return view('pages.media.index', compact('images'));
     }
 
     /**
@@ -40,37 +35,27 @@ class MediaController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request->all());
         try {
+            $name = [];
+            $baseUrl = url('/');
+            $imgpath = public_path('images/media/');
+            if (!empty($request->file('media'))) {
+                foreach ($request->file('media') as $index => $img) {
+                    $file = $img;
+                    $fileName = time() . '_' . $index . '.' . $file->getClientOriginalExtension();
+                    $file->move($imgpath, $fileName);
 
-            $imgpath = public_path('images/blog/');
-            if (!empty($request->avatar)) {
-                $file = $request->avatar;
-                $fileName = time() . '.' . $file->clientExtension();
-                $file->move($imgpath, $fileName);
+                    $url = $baseUrl . '/images/media/' . $fileName;
+    
+                    Media::create([
+                        'created_by' => auth()->user()->id ?? '',
+                        'img' => $fileName ?? '',
+                        'url' => $url ?? '',
+                    ]);
+                }
             }
-
-            // $imageUrl = 'images/blog/' . $fileName;
-            // $imageAsset = asset($imageUrl);
-            $slug = $request->slug;
-            if (strpos($slug, ' ') !== false) {
-                $slugValue = str_replace(' ', '-', $slug);
-            } else {
-                $slugValue = $slug;
-            }
-            Blog::create([
-                'created_by' => auth()->user()->id ?? '',
-                'title' => $request->title ?? '',
-                'description' => $request->description ?? '',
-                'categories' => json_encode($request->categories),
-                'tags' => json_encode($request->tags),
-                'img' => $fileName ?? '',
-                'slug' => $slugValue ?? '',
-            ]);
-
             toastr()->success('Created Successfully');
-
-            return redirect()->route('blogs.index');
+            return redirect()->route('media.index');
         } catch (Exception $e) {
             toastr()->error($e);
 
@@ -83,30 +68,30 @@ class MediaController extends Controller
      */
     public function show($slug)
     {
-        try {
-            $blog = Blog::where('slug', $slug)->first();
-            $tags = [];
-            foreach(json_decode($blog->tags) as $tagId)
-            {
-                $tag = Tag::find($tagId);
-                $tags[] = $tag->name;
-            }
+        // try {
+        //     $blog = Blog::where('slug', $slug)->first();
+        //     $tags = [];
+        //     foreach(json_decode($blog->tags) as $tagId)
+        //     {
+        //         $tag = Tag::find($tagId);
+        //         $tags[] = $tag->name;
+        //     }
             
-            $categories = [];
-            foreach(json_decode($blog->categories) as $categoryId)
-            {
+        //     $categories = [];
+        //     foreach(json_decode($blog->categories) as $categoryId)
+        //     {
                 
-                $category = Category::find($categoryId);
-                $categories[] = $category->name;
-            }
+        //         $category = Category::find($categoryId);
+        //         $categories[] = $category->name;
+        //     }
             
 
-            return view('pages.blogs.show', compact(['blog', 'tags', 'categories']));
-        } catch (Exception $e) {
-            toastr()->error($e);
+        //     return view('pages.blogs.show', compact(['blog', 'tags', 'categories']));
+        // } catch (Exception $e) {
+        //     toastr()->error($e);
 
-            return redirect()->back();
-        }
+        //     return redirect()->back();
+        // }
     }
 
     /**
@@ -114,66 +99,14 @@ class MediaController extends Controller
      */
     public function edit($id)
     {
-    //     try {
-    //         $blog = Blog::find($id);
-
-    //         return response()->json($blog);
-
-    //    } catch (Exception $e) {
-    //         toastr()->error($e);
-
-    //         return redirect()->back();
-    //     }
+ 
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function blogUpdate(Request $request)
+    public function update(Request $request)
     {
-        // dd($request->all());
-        try {
-            $updatedRow = Blog::find($request->updateId);
-            $imgpath = public_path('images/blog/');
-            if (empty($request->avatar)) {
-                $updateimage = $updatedRow->img;
-            } else {
-                $imagePath =  $imgpath . $updatedRow->img;
-                
-                if (File::exists($imagePath)) {
-                    File::delete($imagePath);
-                }
-                $destinationPath = $imgpath;
-                $file = $request->avatar;
-                $fileName = time() . '.' . $file->clientExtension();
-                $file->move($destinationPath, $fileName);
-                $updateimage = $fileName;
-    
-                // $imageUrl = 'images/blog/' . $updateimage;
-                // $updateimage = asset($imageUrl);
-            }
-
-           
-            $slug = $request->slug;
-            if (strpos($slug, ' ') !== false) {
-                $slugValue = str_replace(' ', '-', $slug);
-            } else {
-                $slugValue = $slug;
-            }
-            $updatedRow->update([
-                'title' => $request->title ?? '',
-                'description' => $request->description ?? '',
-                'categories' => json_encode($request->categories),
-                'tags' => json_encode($request->tags),
-                'img' => $updateimage ?? '',
-                'slug' => $slugValue ?? '',
-            ]);
-        } catch (Exception $e) {
-            toastr()->error($e->getMessage());
-        }
-        toastr()->success('Update Successfully');
-
-        return redirect()->route('blogs.index');
     }
 
     /**
@@ -181,24 +114,16 @@ class MediaController extends Controller
      */
     public function destroy($id)
     {
+        // dd($id);
         try {
-            $imgpath = public_path('images/blog/');
-            $imgRecord = Blog::find($id);
-            $path = $imgpath . $imgRecord->img;
-
-            if (File::exists($path)) {
-                File::delete($path);
-            }
-
-            $imgRecord->delete();
-
+            $imgRecord = Media::find($id);
+            $imgRecord->update([
+                'deleted_at' => Carbon::now(),
+            ]);
             toastr()->success('Delete Successfully');
-
-            return redirect()->route('blogs.index');
-
+            return redirect()->route('media.index');
        } catch (Exception $e) {
             toastr()->error($e);
-
             return redirect()->back();
         }
     }

@@ -32,11 +32,11 @@
 
         <div class="card-body py-4">
             <div class="table-responsive hideshow displayNone">
-                <form method="POST" action="{{ route('categories.store') }}" enctype="multipart/form-data">
+                <form method="POST" action="{{ route('media.store') }}" enctype="multipart/form-data">
                     @csrf
 
                     <div class="file-form" id="dropSection">
-                        <input name="img[]" id="fileInput" type="file" multiple accept="image/*"
+                        <input name="media[]" id="fileInput" type="file" multiple accept="image/*"
                             onchange="app.actions.handleFiles(this.files)">
                         <label class="drop-content" for="fileInput">
                             Drops file to attach, or click and select
@@ -52,7 +52,8 @@
                     <div id="uploadedImage"></div>
                     <div class="text-right">
                         <button type="submit" class="btn btn-primary bgColor">Save</button>
-                        <button id="clearAllBtn" onclick="app.actions.clearAll()" type="button" class="btn">Clear</button>
+                        <button id="clearAllBtn" onclick="app.actions.clearAll()" type="button"
+                            class="btn">Clear</button>
                         <button type="button" class="btn btn-secondary hideBtn">Close</button>
                     </div>
 
@@ -60,10 +61,56 @@
             </div>
         </div>
     </div>
+    <div class="card mt-10">
+
+        <div class="card-body py-4">
+            <div class="row">
+                @if (!empty($images))
+                    @foreach ($images as $image)
+                        <div class="col-md-2">
+                            <div class="card media_inner_card">
+                                <form class="user_delete submit-form" action="{{ route('media.destroy', $image->id) }}"
+                                    method="POST">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="menu-link px-3 dlt_btn"><i
+                                            class="fa fa-trash"></i></button>
+                                </form>
+                                {{-- <a href=""><i class="fa fa-trash"></i></a> --}}
+                                <img src="{{ $image->url ?? '' }}" alt="">
+                            </div>
+                        </div>
+                    @endforeach
+                @endif
+            </div>
+        </div>
+    </div>
     </div>
 
 
     @push('scripts')
+        <script>
+            $(document).ready(function() {
+                $('.submit-form').submit(function(event) {
+                    event.preventDefault();
+                    var form = $(this);
+
+                    Swal.fire({
+                        title: 'Are you sure?',
+                        text: "You won't be able to revert this!",
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonText: 'Yes, delete it!',
+                        confirmButtonColor: '#dc3545',
+                        cancelButtonText: 'Cancel'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            form.unbind('submit').submit();
+                        }
+                    });
+                });
+            });
+        </script>
         <script>
             $('.addImageBtn').on('click', function(event) {
                 $('.hideshow').removeClass('displayNone');
@@ -146,7 +193,7 @@
                             }
                         })
                     },
-                   
+
                 },
                 init: function() {
                     app.selector.dropArea.addEventListener('drop', app.actions.handleDrop, false);
