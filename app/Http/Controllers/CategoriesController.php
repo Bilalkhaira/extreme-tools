@@ -40,7 +40,7 @@ class CategoriesController extends Controller
      */
     public function store(Request $request)
     {
-        dd($request->all());
+        // dd($request->all());
         try {
 
             Category::create([
@@ -107,7 +107,11 @@ class CategoriesController extends Controller
     public function destroy($id)
     {
         try {
-            Category::find($id)->delete();
+            $record = Category::find($id);
+
+            $record->update([
+                'status' => 0,
+            ]);
 
             toastr()->success('Delete Successfully');
 

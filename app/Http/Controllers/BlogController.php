@@ -21,8 +21,8 @@ class BlogController extends Controller
      */
     public function index(BlogsDataTable $dataTable)
     {
-        $categories = Category::get();
-        $tags = Tag::get();
+        $categories = Category::where('status', 1)->get();
+        $tags = Tag::where('status', 1)->get();
         
         return $dataTable->render('pages.blogs.list', compact(['categories', 'tags']));
     }
@@ -40,8 +40,8 @@ class BlogController extends Controller
     {
         $blog = Blog::find($request->blogId);
 
-        $categories = Category::get();
-        $tags = Tag::get();
+        $categories = Category::where('status', 1)->get();
+        $tags = Tag::where('status', 1)->get();
 
        return view('pages.blogs.edit', compact(['blog', 'categories', 'tags']));
     }

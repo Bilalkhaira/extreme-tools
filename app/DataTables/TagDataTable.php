@@ -36,7 +36,7 @@ class TagDataTable extends DataTable
      */
     public function query(Tag $model): QueryBuilder
     {
-        return $model->newQuery();
+        return $model->where('status', 1)->newQuery();
     }
 
     /**

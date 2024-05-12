@@ -101,7 +101,11 @@ class TagsController extends Controller
     public function destroy($id)
     {
         try {
-            Tag::find($id)->delete();
+            $record = Tag::find($id);
+
+            $record->update([
+                'status' => 0,
+            ]);
 
             toastr()->success('Delete Successfully');
 

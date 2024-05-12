@@ -151,6 +151,10 @@
                                 <option @if (in_array($category->id, json_decode($blog->categories))) ? selected : '' @endif
                                     value="{{ $category->id }}">{{ $category->name }}</option>
                             @endforeach
+                        @else
+                            @foreach ($categories as $category)
+                            <option value="{{ $category->id }}">{{ $category->name }}</option>
+                            @endforeach
                         @endif
                     </select>
                 </div>
@@ -163,6 +167,10 @@
                             @foreach ($tags as $tag)
                                 <option @if (in_array($tag->id, json_decode($blog->tags))) ? selected : '' @endif
                                     value="{{ $tag->id }}">{{ $tag->name }}</option>
+                            @endforeach
+                        @else
+                            @foreach ($tags as $tag)
+                            <option value="{{ $tag->id }}">{{ $tag->name }}</option>
                             @endforeach
                         @endif
                     </select>

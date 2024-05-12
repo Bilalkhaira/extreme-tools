@@ -184,7 +184,7 @@
 			
 			<div class="menu-item">
 				<!--begin:Menu link-->
-				<a class="menu-link" href="{{ route('subcription-plan.index') }}">
+				<a class="menu-link {{ request()->routeIs('subcription-plan.*') ? 'active' : '' }}" href="{{ route('subcription-plan.index') }}">
 					<span class="menu-icon">{!! getIcon('book', 'fs-2') !!}</span>
 					<span class="menu-title">Subscription Plan</span>
 				</a>
