@@ -20,22 +20,22 @@
         <input type="hidden" name="updatedId" value="{{ $user->id ?? '' }}">
         <div class="fv-row mb-7">
             <label class="required fw-semibold fs-6 mb-2">Full Name</label>
-            <input type="text" name="name" value="{{ $user->name ?? '' }}" class="form-control form-control-solid mb-3 mb-lg-0" placeholder="Full name"/>
+            <input type="text" name="name" value="{{ $user->name ?? '' }}" class="form-control form-control-solid mb-3 mb-lg-0" placeholder="Full name" required/>
             
         </div>
         <div class="fv-row mb-7">
             <label class="required fw-semibold fs-6 mb-2">Email</label>
-            <input type="email" name="email" value="{{ $user->email ?? '' }}" class="form-control form-control-solid mb-3 mb-lg-0" placeholder="example@domain.com"/>
+            <input type="email" name="email" value="{{ $user->email ?? '' }}" class="form-control form-control-solid mb-3 mb-lg-0" placeholder="example@domain.com" required/>
            
         </div>
         <div class="fv-row mb-7">
             <label class="required fw-semibold fs-6 mb-2">Phone</label>
-            <input type="number" name="phone_no" value="{{ $user->phone_no ?? '' }}" class="form-control form-control-solid mb-3 mb-lg-0"/>
+            <input type="number" name="phone_no" value="{{ $user->phone_no ?? '' }}" class="form-control form-control-solid mb-3 mb-lg-0" required/>
         </div>
 
         <div class="fv-row mb-7">
             <label class="required fw-semibold fs-6 mb-2">Address</label>
-            <input type="text" name="address" value="{{ $user->address ?? '' }}" class="form-control form-control-solid mb-3 mb-lg-0"/>
+            <input type="text" name="address" value="{{ $user->address ?? '' }}" class="form-control form-control-solid mb-3 mb-lg-0" required/>
         </div>
         
     </div>

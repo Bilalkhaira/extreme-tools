@@ -40,7 +40,7 @@
                             <label class="required fw-semibold fs-6 mb-2">Full Name</label>
                             <!--end::Label-->
                             <!--begin::Input-->
-                            <input type="text" name="name" name="name" class="form-control form-control-solid mb-3 mb-lg-0" placeholder="Full name"/>
+                            <input type="text" name="name" name="name" class="form-control form-control-solid mb-3 mb-lg-0" placeholder="Full name" required>
                             <!--end::Input-->
                             @error('name')
                             <span class="text-danger">{{ $message }}</span> @enderror
@@ -52,7 +52,7 @@
                             <label class="required fw-semibold fs-6 mb-2">Email</label>
                             <!--end::Label-->
                             <!--begin::Input-->
-                            <input type="email" name="email" name="email" class="form-control form-control-solid mb-3 mb-lg-0" placeholder="example@domain.com"/>
+                            <input type="email" name="email" name="email" class="form-control form-control-solid mb-3 mb-lg-0" placeholder="example@domain.com" required/>
                             <!--end::Input-->
                             @error('email')
                             <span class="text-danger">{{ $message }}</span> @enderror
@@ -62,7 +62,7 @@
                             <label class="required fw-semibold fs-6 mb-2">Phone</label>
                             <!--end::Label-->
                             <!--begin::Input-->
-                            <input type="number" name="phone_no" name="phone_no" class="form-control form-control-solid mb-3 mb-lg-0"/>
+                            <input type="number" name="phone_no" name="phone_no" class="form-control form-control-solid mb-3 mb-lg-0" required/>
                             <!--end::Input-->
                             @error('phone_no')
                             <span class="text-danger">{{ $message }}</span> @enderror
@@ -73,7 +73,7 @@
                             <label class="required fw-semibold fs-6 mb-2">Address</label>
                             <!--end::Label-->
                             <!--begin::Input-->
-                            <input type="text" name="address" name="address" class="form-control form-control-solid mb-3 mb-lg-0"/>
+                            <input type="text" name="address" name="address" class="form-control form-control-solid mb-3 mb-lg-0" required/>
                             <!--end::Input-->
                             @error('address')
                             <span class="text-danger">{{ $message }}</span> @enderror
