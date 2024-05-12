@@ -112,7 +112,7 @@
                             </div>
                         </div>
                     </div> --}}
-                    <a type="button" class="addMediaBtn btn btn-primary theme_btn_bg btn-sm">
+                    <a type="button" class="addMediaBtn2 btn btn-primary theme_btn_bg btn-sm">
                         Add Thumbnail
                     </a>
                     <div class="row appearMedia">
@@ -197,8 +197,8 @@
 <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
 <script>
-     $('.addMediaBtn').click(function() {
-        $('#mediaModel').modal('show');
+     $('.addMediaBtn2').click(function() {
+        $('#mediaModel2').modal('show');
     });
     $('.multiMediaBtn').click(function() {
         $('#multiMediaModel').modal('show');

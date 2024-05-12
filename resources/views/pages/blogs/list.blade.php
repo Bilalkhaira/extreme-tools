@@ -168,7 +168,7 @@
                                             </div>
                                         </div>
                                     </div> --}}
-                                    <a type="button" class="addMediaBtn btn btn-primary theme_btn_bg btn-sm">
+                                    <a type="button" class="addMediaBtn2 btn btn-primary theme_btn_bg btn-sm">
                                         Add Thumbnail
                                     </a>
                                     <div class="row appearMedia"></div>
@@ -338,8 +338,8 @@
 
 
         <script>
-             $('.addMediaBtn').click(function() {
-                $('#mediaModel').modal('show');
+             $('.addMediaBtn2').click(function() {
+                $('#mediaModel2').modal('show');
             })
             $('.multiMediaBtn').click(function() {
                 $('#multiMediaModel').modal('show');
