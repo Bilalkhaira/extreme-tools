@@ -113,7 +113,7 @@
                                     </div>
                                 </div> --}}
                                 <div class="col-md-12 mb-10">
-                                    <a type="button" class="addMediaBtn btn btn-primary theme_btn_bg btn-sm">
+                                    <a type="button" class="addMediaBtns btn btn-primary theme_btn_bg btn-sm">
                                         Add Media
                                     </a>
                                     <div class="row appearMedia"></div>
@@ -223,7 +223,7 @@
                                     </div>
                                 </div> --}}
                                 <div class="col-md-12 mb-10">
-                                    <a type="button" class="addMediaBtn btn btn-primary theme_btn_bg btn-sm">
+                                    <a type="button" class="addMediaBtns btn btn-primary theme_btn_bg btn-sm">
                                         Add Media
                                     </a>
                                     <div class="row appearMedia"></div>
@@ -278,8 +278,8 @@
 
 
         <script>
-            $('.addMediaBtn').click(function() {
-                $('#mediaModel').modal('show');
+            $('.addMediaBtns').click(function() {
+                $('#mediaModel1').modal('show');
             });
             document.getElementById('mySearchInput').addEventListener('keyup', function() {
                 window.LaravelDataTables['admin_tools-table'].search(this.value).draw();
