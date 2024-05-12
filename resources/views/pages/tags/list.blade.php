@@ -53,7 +53,7 @@
         </div>
         <!--end::Card body-->
     </div>
-    <div id="ProductModal" class="modal fade show " tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-modal="true" aria-hidden="true" style="color: black;">
+    <div id="ProductModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-modal="true" aria-hidden="true" style="color: black;">
         <div class="modal-dialog modal-lg" id="ProductModalDialog">
             <div class="modal-content" id="ProductModalContent">
 
@@ -93,7 +93,7 @@
             </div>
         </div>
     </div>
-    <div id="EditModal" class="modal fade show " tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-modal="true" aria-hidden="true" style="color: black;">
+    <div id="EditModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-modal="true" aria-hidden="true" style="color: black;">
         <div class="modal-dialog modal-lg" id="ProductModalDialog">
             <div class="modal-content" id="BlogModalData">
 
@@ -155,9 +155,6 @@
             });
         });
 
-
-
-
         function AddProduct() {
             $('#ProductModal').modal('show');
         }
@@ -176,14 +173,13 @@
                 dataType: "json",
 
                 success: function(data) {
-                    $('#EditModal').modal('show');
                     $('body').find('#title').val(data.name);
                     $('body').find('#updateId').val(data.id);
+                    $('#EditModal').modal('show');
                 }
                 
             });
         }
     </script>
     @endpush
-
 </x-default-layout>
