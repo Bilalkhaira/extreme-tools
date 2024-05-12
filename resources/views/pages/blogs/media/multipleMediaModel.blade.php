@@ -1,4 +1,4 @@
-<div id="multiMediaModel" class="modal fade show " tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-modal="true"
+<div id="multiMediaModel" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-modal="true"
     aria-hidden="true" style="color: black;">
     <div class="modal-dialog modal-xl" id="ProductModalDialog">
         <div class="modal-content" id="ProductModalContent">

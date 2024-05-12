@@ -55,7 +55,7 @@
         </div>
         <!--end::Card body-->
     </div>
-    <div id="ProductModal" class="modal fade show " tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+    <div id="ProductModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
         aria-modal="true" aria-hidden="true" style="color: black;">
         <div class="modal-dialog modal-lg" id="ProductModalDialog">
             <div class="modal-content" id="ProductModalContent">
@@ -243,7 +243,7 @@
             </div>
         </div>
     </div>
-    <div id="EditModal" class="modal fade show " tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+    <div id="EditModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
         aria-modal="true" aria-hidden="true" style="color: black;">
         <div class="modal-dialog modal-lg" id="ProductModalDialog">
             <div class="modal-content" id="BlogModalData">
