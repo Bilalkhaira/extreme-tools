@@ -31,8 +31,7 @@
     </div>
     <div class="col-md-6">
         <label> <b>Plan Level:</b></label>
-        <select class="form-control" name="plan_level" id="">
-            <option>Select Plan</option>
+        <select class="form-control" name="plan_level" id="" required>
             <option @if ($plan->level == '1') selected @endif value="1">Level One</option>
             <option @if ($plan->level == '2') selected @endif value="2">Level Two</option>
             <option @if ($plan->level == '3') selected @endif value="3">Level Three</option>
@@ -46,12 +45,12 @@
     <div class="col-lg-6 mb-5">
         <label> <b>Plan Original Price:</b></label>
         <input type="number" name="price" class="form-control" value="{{ $plan->original_price ?? '' }}"
-            placeholder="Enter Price">
+            placeholder="Enter Price" required>
     </div>
     <div class="col-lg-6 mb-5">
         <label> <b>Plan Discounted Price:</b></label>
         <input type="number" name="discounted_price" value="{{ $plan->discounted_price ?? '' }}" class="form-control"
-            placeholder="Enter Price">
+            placeholder="Enter Price" required>
     </div>
 </div>
 
@@ -61,7 +60,7 @@
     </div>
 </div>
 <div class="row append_col">
-    @if (!empty($plan->features))
+    @if (!empty($plan->features) && $plan->features != 'null')
         @foreach (json_decode($plan->features) as $feature)
             <div class="row">
                 <div class="col-md-11 mb-5">

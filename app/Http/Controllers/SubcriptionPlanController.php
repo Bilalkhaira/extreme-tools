@@ -58,21 +58,28 @@ class SubcriptionPlanController extends Controller
     {
         // dd($request->all());
         try {
-            $lowercaseString = strtolower($request->title);
-            $convertedString = str_replace(' ', '_', $lowercaseString);
-            SubscriptionPlan::create([
-                'id' => $convertedString ?? '',
-                'name' => $request->title ?? '',
-                'createdAt' => Carbon::now() ?? '',
-                'updatedAt' => Carbon::now() ?? '',
-                'original_price' => $request->price  ?? '',
-                'level' => $request->plan_level  ?? '',
-                'subscription_interval' => $request->plan  ?? '',
-                'discounted_price' => $request->discounted_price  ?? '',
-                'features' => json_encode($request->features),
-            ]);
-            toastr()->success('Created Successfully');
-            return redirect()->route('subcription-plan.index');
+            $record = SubscriptionPlan::where('name', $request->title)->first();
+            if(!$record) {
+                $lowercaseString = strtolower($request->title);
+                $convertedString = str_replace(' ', '_', $lowercaseString);
+                SubscriptionPlan::create([
+                    'id' => $convertedString ?? '',
+                    'name' => $request->title ?? '',
+                    'createdAt' => Carbon::now() ?? '',
+                    'updatedAt' => Carbon::now() ?? '',
+                    'original_price' => $request->price  ?? '',
+                    'level' => $request->plan_level  ?? '',
+                    'subscription_interval' => $request->plan  ?? '',
+                    'discounted_price' => $request->discounted_price  ?? '',
+                    'features' => json_encode($request->features),
+                ]);
+                toastr()->success('Created Successfully');
+                return redirect()->route('subcription-plan.index');
+            } else {
+                toastr()->error('Post already exist with this name use any other name');
+                return redirect()->route('subcription-plan.index');
+            }
+           
         } catch (Exception $e) {
             toastr()->error($e);
             return redirect()->back();
@@ -116,18 +123,24 @@ class SubcriptionPlanController extends Controller
     public function update(Request $request)
     {
         try {
-            $updatedRow = SubscriptionPlan::find($request->updateId);
-            $updatedRow->update([
-                'name' => $request->title ?? '',
-                'updatedAt' => Carbon::now() ?? '',
-                'original_price' => $request->price  ?? '',
-                'level' => $request->plan_level  ?? '',
-                'subscription_interval' => $request->plan  ?? '',
-                'discounted_price' => $request->discounted_price  ?? '',
-                'features' => json_encode($request->features),
-            ]);
-            toastr()->success('Update Successfully');
-            return redirect()->route('subcription-plan.index');
+            $record = SubscriptionPlan::where('name', $request->title)->where('id', '!=', $request->updateId)->first();
+            if(!$record) {
+                $updatedRow = SubscriptionPlan::find($request->updateId);
+                $updatedRow->update([
+                    'name' => $request->title ?? '',
+                    'updatedAt' => Carbon::now() ?? '',
+                    'original_price' => $request->price  ?? '',
+                    'level' => $request->plan_level  ?? '',
+                    'subscription_interval' => $request->plan  ?? '',
+                    'discounted_price' => $request->discounted_price  ?? '',
+                    'features' => json_encode($request->features),
+                ]);
+                toastr()->success('Update Successfully');
+                return redirect()->route('subcription-plan.index');
+            } else {
+                toastr()->error('Post already exist with this name use any other name');
+                return redirect()->route('subcription-plan.index');
+            }
         } catch (Exception $e) {
             toastr()->error($e->getMessage());
         }

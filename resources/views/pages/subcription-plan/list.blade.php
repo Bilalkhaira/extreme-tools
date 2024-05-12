@@ -64,7 +64,7 @@
                                 <div class="col-md-6">
                                     <div class="form-check-inline">
                                         <label class="form-check-label">
-                                            <input type="checkbox" class="form-check-input" name="plan"
+                                            <input type="checkbox" class="form-check-input" checked name="plan"
                                                 value="monthly">Monthly
                                         </label>
                                     </div>
@@ -86,8 +86,7 @@
                                 </div>
                                 <div class="col-md-6">
                                     <label> <b>Plan Level:</b></label>
-                                    <select class="form-control" name="plan_level" id="">
-                                        <option>Select Plan</option>
+                                    <select class="form-control" name="plan_level" id="" required>
                                         <option value="1">Level One</option>
                                         <option value="2">Level Two</option>
                                         <option value="3">Level Three</option>
@@ -99,11 +98,11 @@
                             <div class="row">
                                 <div class="col-lg-6 mb-5">
                                     <label> <b>Plan Original Price:</b></label>
-                                    <input type="number" name="price" class="form-control" placeholder="Enter Price">
+                                    <input type="number" name="price" class="form-control" placeholder="Enter Price" required>
                                 </div>
                                 <div class="col-lg-6 mb-5">
                                     <label> <b>Plan Discounted Price:</b></label>
-                                    <input type="number" name="discounted_price" class="form-control" placeholder="Enter Price">
+                                    <input type="number" name="discounted_price" class="form-control" placeholder="Enter Price" required>
                                 </div>
                             </div>
                           
@@ -119,7 +118,7 @@
                                             required></textarea>
                                     </div>
                                     <div class="col-md-1 mb-5">
-                                        <span class="trash_btn"><i class="fa fa-trash"></i></span>
+                                        {{-- <span class="trash_btn"><i class="fa fa-trash"></i></span> --}}
                                     </div>
                                 </div>
                             </div>
