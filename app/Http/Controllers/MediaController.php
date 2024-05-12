@@ -114,7 +114,6 @@ class MediaController extends Controller
      */
     public function destroy($id)
     {
-        // dd($id);
         try {
             $imgRecord = Media::find($id);
             $imgRecord->update([

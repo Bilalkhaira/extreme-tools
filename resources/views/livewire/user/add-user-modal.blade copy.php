@@ -1,4 +1,4 @@
-<div class="modal fade" id="kt_modal_add_user1" tabindex="-1" aria-hidden="true" wire:ignore.self>
+<div class="modal fade" id="kt_modal_add_user" tabindex="-1" aria-hidden="true" wire:ignore.self>
     <!--begin::Modal dialog-->
     <div class="modal-dialog modal-dialog-centered mw-650px">
         <!--begin::Modal content-->
@@ -18,20 +18,60 @@
             <!--begin::Modal body-->
             <div class="modal-body px-5 my-7">
                 <!--begin::Form-->
-                <form class="form" method="POST" action="{{ route('addAdminUser') }}" id="kt_modal_update_user_form" enctype="multipart/form-data">
-                    @csrf
-                    @method('POST')
+                <form id="kt_modal_add_user_form" class="form" action="#" wire:submit.prevent="submit" enctype="multipart/form-data">
                     <!--begin::Scroll-->
                     <div class="d-flex flex-column scroll-y px-5 px-lg-10" id="kt_modal_add_user_scroll" data-kt-scroll="true" data-kt-scroll-activate="true" data-kt-scroll-max-height="auto" data-kt-scroll-dependencies="#kt_modal_add_user_header" data-kt-scroll-wrappers="#kt_modal_add_user_scroll" data-kt-scroll-offset="300px">
                         <!--begin::Input group-->
-                        <div class="row mb-5">
-                            <div class="col-md-6">
-                                <a type="button" class="addMediaBtn btn btn-primary theme_btn_bg btn-sm">
-                                    Profile Image
-                                </a>
-                                <div class="row appearMedia">
-                                </div>
+                        <div class="fv-row mb-7">
+                            <!--begin::Label-->
+                            <label class="d-block fw-semibold fs-6 mb-5">Avatar</label>
+                            <!--end::Label-->
+                            <!--begin::Image placeholder-->
+                            <style>
+                                .image-input-placeholder {
+                                    background-image: url('{{ image('svg/files/blank-image.svg') }}');
+                                }
+
+                                [data-bs-theme="dark"] .image-input-placeholder {
+                                    background-image: url('{{ image('svg/files/blank-image-dark.svg') }}');
+                                }
+                            </style>
+                            <!--end::Image placeholder-->
+                            <!--begin::Image input-->
+                            <div class="image-input image-input-outline image-input-placeholder {{ $avatar || $saved_avatar ? '' : 'image-input-empty' }}" data-kt-image-input="true">
+                                <!--begin::Preview existing avatar-->
+                                @if($avatar)
+                                    <div class="image-input-wrapper w-125px h-125px" style="background-image: url({{ $avatar ? $avatar->temporaryUrl() : '' }});"></div>
+                                @else
+                                    <div class="image-input-wrapper w-125px h-125px" style="background-image: url({{ $saved_avatar }});"></div>
+                                @endif
+                                <!--end::Preview existing avatar-->
+                                <!--begin::Label-->
+                                <label class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px" data-kt-image-input-action="change" data-bs-toggle="tooltip" title="Change avatar">
+                                    {!! getIcon('pencil','fs-7') !!}
+                                    <!--begin::Inputs-->
+                                    <input type="file" wire:model.defer="avatar" name="avatar" accept=".png, .jpg, .jpeg"/>
+                                    <input type="hidden" name="avatar_remove"/>
+                                    <!--end::Inputs-->
+                                </label>
+                                <!--end::Label-->
+                                <!--begin::Cancel-->
+                                <span class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="cancel" data-bs-toggle="tooltip" title="Cancel avatar">
+                                    {!! getIcon('cross','fs-2') !!}
+                                </span>
+                                <!--end::Cancel-->
+                                <!--begin::Remove-->
+                                <span class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow displayNone" data-kt-image-input-action="remove" data-bs-toggle="tooltip" title="Remove avatar">
+                                    {!! getIcon('cross','fs-2') !!}
+                                </span>
+                                <!--end::Remove-->
                             </div>
+                            <!--end::Image input-->
+                            <!--begin::Hint-->
+                            <div class="form-text">Allowed file types: png, jpg, jpeg.</div>
+                            <!--end::Hint-->
+                            @error('avatar')
+                            <span class="text-danger">{{ $message }}</span> @enderror
                         </div>
                         <!--end::Input group-->
                         <!--begin::Input group-->
@@ -40,7 +80,7 @@
                             <label class="required fw-semibold fs-6 mb-2">Full Name</label>
                             <!--end::Label-->
                             <!--begin::Input-->
-                            <input type="text" name="name" name="name" class="form-control form-control-solid mb-3 mb-lg-0" placeholder="Full name"/>
+                            <input type="text" wire:model.defer="name" name="name" class="form-control form-control-solid mb-3 mb-lg-0" placeholder="Full name"/>
                             <!--end::Input-->
                             @error('name')
                             <span class="text-danger">{{ $message }}</span> @enderror
@@ -52,7 +92,7 @@
                             <label class="required fw-semibold fs-6 mb-2">Email</label>
                             <!--end::Label-->
                             <!--begin::Input-->
-                            <input type="email" name="email" name="email" class="form-control form-control-solid mb-3 mb-lg-0" placeholder="example@domain.com"/>
+                            <input type="email" wire:model.defer="email" name="email" class="form-control form-control-solid mb-3 mb-lg-0" placeholder="example@domain.com"/>
                             <!--end::Input-->
                             @error('email')
                             <span class="text-danger">{{ $message }}</span> @enderror
@@ -62,7 +102,7 @@
                             <label class="required fw-semibold fs-6 mb-2">Phone</label>
                             <!--end::Label-->
                             <!--begin::Input-->
-                            <input type="number" name="phone_no" name="phone_no" class="form-control form-control-solid mb-3 mb-lg-0"/>
+                            <input type="number" wire:model.defer="phone_no" name="phone_no" class="form-control form-control-solid mb-3 mb-lg-0"/>
                             <!--end::Input-->
                             @error('phone_no')
                             <span class="text-danger">{{ $message }}</span> @enderror
@@ -73,7 +113,7 @@
                             <label class="required fw-semibold fs-6 mb-2">Address</label>
                             <!--end::Label-->
                             <!--begin::Input-->
-                            <input type="text" name="address" name="address" class="form-control form-control-solid mb-3 mb-lg-0"/>
+                            <input type="text" wire:model.defer="address" name="address" class="form-control form-control-solid mb-3 mb-lg-0"/>
                             <!--end::Input-->
                             @error('address')
                             <span class="text-danger">{{ $message }}</span> @enderror
@@ -94,7 +134,7 @@
                                     <!--begin::Radio-->
                                     <div class="form-check form-check-custom form-check-solid">
                                         <!--begin::Input-->
-                                        <input class="form-check-input me-3" id="kt_modal_update_role_option_{{ $role->id }}" name="role" name="role" type="radio" value="{{ $role->name }}" checked="checked"/>
+                                        <input class="form-check-input me-3" id="kt_modal_update_role_option_{{ $role->id }}" wire:model.defer="role" name="role" type="radio" value="{{ $role->name }}" checked="checked"/>
                                         <!--end::Input-->
                                         <!--begin::Label-->
                                         <label class="form-check-label" for="kt_modal_update_role_option_{{ $role->id }}">
@@ -140,9 +180,3 @@
     </div>
     <!--end::Modal dialog-->
 </div>
-@include('pages.apps/user-management/users/media/mediaModel')
-<script>
-    $('.addMediaBtn').click(function() {
-       $('#mediaModel').modal('show');
-   });
-</script>

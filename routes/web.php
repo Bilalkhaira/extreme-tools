@@ -79,6 +79,9 @@ Route::middleware(['auth', 'verified', 'setlocale'])->group(function () {
     Route::post('/blog-update', [BlogController::class, 'blogUpdate'])->name('blogUpdate');
 
     Route::post('/update-user', [UserProfileController::class, 'updateUser'])->name('updateUser');
+    Route::post('/add-admin-user', [UserProfileController::class, 'addAdminUser'])->name('addAdminUser');
+    Route::post('/edit-admin-user', [UserProfileController::class, 'adminUserEdit'])->name('adminUserEdit');
+    Route::post('/update-admin-user', [UserProfileController::class, 'updateAdminUser'])->name('updateAdminUser');
 
     Route::get('plans', [PlanController::class, 'index'])->name('plan.index');
     Route::get('plans/{plan}', [PlanController::class, 'show'])->name("plans.show");

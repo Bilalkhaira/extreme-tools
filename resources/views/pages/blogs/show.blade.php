@@ -21,12 +21,12 @@
                     <div class="d-flex flex-center flex-column py-5">
                         <!--begin::Avatar-->
                         <div class="symbol symbol-100px symbol-circle mb-7">
-                            <img src="{{ asset('images/blog/'.$blog->img) }}" alt="image" />
+                            <img src="{{ $blog->thumbnail ?? '' }}" alt="image" />
                             
                         </div>
                         <!--end::Avatar-->
                         <!--begin::Name-->
-                        <a href="#" class="fs-3 text-gray-800 text-hover-primary fw-bold mb-3">{{ $blog->title }}</a>
+                        <a href="#" class="fs-3 text-gray-800 text-hover-primary fw-bold mb-3">Blog Thumbnail</a>
                         <!--end::Name-->
                         <!--begin::Position-->
                        
@@ -114,6 +114,22 @@
                                     <div class="row mt-5 mb-5">
                                         <div class="col-md-3"> <div class="fw-bold mt-5">Short Description</div></div>
                                         <div class="col-md-9"><div class="text-gray-600 mt-5">{!!  $blog->short_description ?? '' !!}</div></div>
+                                    </div>
+                                    <div class="row mt-5 mb-5">
+                                        <div class="col-md-3"> <div class="fw-bold mt-5">Blog Images</div></div>
+                                        <div class="col-md-9">
+                                            <div class="row">
+                                                @if(!empty($blog->img))
+                                                @foreach(json_decode($blog->img) as $img)
+                                                <div class="col-md-3 mb-5 deleteMedia">
+                                                    <div class="card">
+                                                        <img height="114px" src="{{ $img }}" alt="">
+                                                    </div>
+                                                </div>
+                                                @endforeach
+                                                @endif
+                                            </div>
+                                        </div>
                                     </div>
                                     
                                 </div>

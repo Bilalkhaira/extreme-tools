@@ -22,7 +22,8 @@
                         <!--begin::Avatar-->
                         <div class="symbol symbol-100px symbol-circle mb-7">
                             @if(!empty($user->avatar))
-                            <img src="{{ asset('images/profile/'.$user->avatar) }}" alt="image" />
+                            <img src="{{ $user->avatar ?? '' }}" alt="image" />
+                            {{-- <img src="{{ asset('images/profile/'.$user->avatar) }}" alt="image" /> --}}
                             @else
                             @if($user->profile_photo_url)
                             <img src="{{ $user->profile_photo_url }}" alt="image" />
@@ -128,10 +129,12 @@
         </div>
 
     </div>
+    
     <!--end::Layout-->
     <!--begin::Modals-->
     <!--begin::Modal - Update user details-->
     @include('pages.apps/user-management/users/modals/_update-details')
+    @include('pages.apps/user-management/users/media/mediaModel')
     <!--end::Modal - Update user details-->
     <!--begin::Modal - Add schedule-->
     @include('pages.apps/user-management/users/modals/_add-schedule')
@@ -156,3 +159,8 @@
     <!--end::Modal - Add task-->
     <!--end::Modals-->
 </x-default-layout>
+<script>
+     $('.addMediaBtn').click(function() {
+        $('#mediaModel').modal('show');
+    });
+</script>

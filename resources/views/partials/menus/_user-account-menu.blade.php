@@ -6,7 +6,8 @@
             <!--begin::Avatar-->
             <div class="symbol symbol-50px me-5">
             @if(!empty(Auth::user()->avatar))
-            <img alt="Logo" src="{{ asset('images/profile/'.Auth::user()->avatar) }}"/>
+            {{-- <img alt="Logo" src="{{ asset('images/profile/'.Auth::user()->avatar) }}"/> --}}
+            <img alt="Logo" src="{{ Auth::user()->avatar ?? '' }}"/>
             @else
                 @if(Auth::user()->profile_photo_url)
                     <img alt="Logo" src="{{ Auth::user()->profile_photo_url }}"/>

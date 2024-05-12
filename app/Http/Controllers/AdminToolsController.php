@@ -38,18 +38,19 @@ class AdminToolsController extends Controller
     {
         try {
 
-            $imgpath = public_path('images/tools/');
-            if (!empty($request->avatar)) {
-                $file = $request->avatar;
-                $fileName = time() . '.' . $file->clientExtension();
-                $file->move($imgpath, $fileName);
-            }
+            // $imgpath = public_path('images/tools/');
+            // if (!empty($request->avatar)) {
+            //     $file = $request->avatar;
+            //     $fileName = time() . '.' . $file->clientExtension();
+            //     $file->move($imgpath, $fileName);
+            // }
 
             AdminTool::create([
                 'created_by' => auth()->user()->id ?? '',
                 'title' => $request->title ?? '',
                 'description' => $request->description ?? '',
-                'img' => $fileName ?? '',
+                // 'img' => $fileName ?? '',
+                'img' => $request->media_url ?? '',
                 'url' => $request->url ?? '',
             ]);
 
@@ -94,27 +95,28 @@ class AdminToolsController extends Controller
     {
         try {
             $updatedRow = AdminTool::find($request->updateId);
-            $imgpath = public_path('images/tools/');
-            if (empty($request->avatar)) {
-                $updateimage = $updatedRow->img;
-            } else {
-                $imagePath =  $imgpath . $updatedRow->img;
+            // $imgpath = public_path('images/tools/');
+            // if (empty($request->avatar)) {
+            //     $updateimage = $updatedRow->img;
+            // } else {
+            //     $imagePath =  $imgpath . $updatedRow->img;
                 
-                if (File::exists($imagePath)) {
-                    File::delete($imagePath);
-                }
-                $destinationPath = $imgpath;
-                $file = $request->avatar;
-                $fileName = time() . '.' . $file->clientExtension();
-                $file->move($destinationPath, $fileName);
-                $updateimage = $fileName;
+            //     if (File::exists($imagePath)) {
+            //         File::delete($imagePath);
+            //     }
+            //     $destinationPath = $imgpath;
+            //     $file = $request->avatar;
+            //     $fileName = time() . '.' . $file->clientExtension();
+            //     $file->move($destinationPath, $fileName);
+            //     $updateimage = $fileName;
     
-            }
+            // }
 
             $updatedRow->update([
                 'title' => $request->title ?? '',
                 'description' => $request->description ?? '',
-                'img' => $updateimage ?? '',
+                // 'img' => $updateimage ?? '',
+                'img' => $request->media_url ?? '',
                 'url' => $request->url ?? '',
             ]);
         } catch (Exception $e) {
@@ -131,13 +133,13 @@ class AdminToolsController extends Controller
     public function destroy($id)
     {
         try {
-            $imgpath = public_path('images/tools/');
+            // $imgpath = public_path('images/tools/');
             $imgRecord = AdminTool::find($id);
-            $path = $imgpath . $imgRecord->img;
+            // $path = $imgpath . $imgRecord->img;
 
-            if (File::exists($path)) {
-                File::delete($path);
-            }
+            // if (File::exists($path)) {
+            //     File::delete($path);
+            // }
 
             $imgRecord->delete();
 

@@ -20,7 +20,7 @@
 
             <div class="card-toolbar">
                 <div class="d-flex justify-content-end" data-kt-user-table-toolbar="base">
-                    <a type="button" class="btn btn-primary bgColor addImageBtn">
+                    <a type="button" class="btn btn-primary bgColor addImageBtn theme_btn_bg">
                         {!! getIcon('plus', 'fs-2', '', 'i') !!}
                         Add Images
                     </a>
@@ -51,7 +51,7 @@
                     <div id="actionContainer" class="d-none"> </div>
                     <div id="uploadedImage"></div>
                     <div class="text-right">
-                        <button type="submit" class="btn btn-primary bgColor">Save</button>
+                        <button type="submit" class="btn btn-primary theme_btn_bg">Save</button>
                         <button id="clearAllBtn" onclick="app.actions.clearAll()" type="button"
                             class="btn">Clear</button>
                         <button type="button" class="btn btn-secondary hideBtn">Close</button>

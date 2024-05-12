@@ -53,18 +53,18 @@ class BlogController extends Controller
     {
         try {
 
-            $imgpath = public_path('images/blog/');
-            if (!empty($request->avatar)) {
-                $file = $request->avatar;
-                $fileName = time() . '.' . $file->clientExtension();
-                $file->move($imgpath, $fileName);
-            }
+            // $imgpath = public_path('images/blog/');
+            // if (!empty($request->avatar)) {
+            //     $file = $request->avatar;
+            //     $fileName = time() . '.' . $file->clientExtension();
+            //     $file->move($imgpath, $fileName);
+            // }
 
-            if (!empty($request->thumbnail)) {
-                $thumbnailFile = $request->thumbnail;
-                $thumbnailName = time() . '.' . $thumbnailFile->clientExtension();
-                $thumbnailFile->move($imgpath, $thumbnailName);
-            }
+            // if (!empty($request->thumbnail)) {
+            //     $thumbnailFile = $request->thumbnail;
+            //     $thumbnailName = time() . '.' . $thumbnailFile->clientExtension();
+            //     $thumbnailFile->move($imgpath, $thumbnailName);
+            // }
 
             // $imageUrl = 'images/blog/' . $fileName;
             // $imageAsset = asset($imageUrl);
@@ -81,8 +81,9 @@ class BlogController extends Controller
                 'short_description' => $request->short_description ?? '',
                 'categories' => json_encode($request->categories),
                 'tags' => json_encode($request->tags),
-                'img' => $fileName ?? '',
-                'thumbnail' => $thumbnailName ?? '',
+                // 'img' => $fileName ?? '',
+                'img' =>  json_encode($request->media),
+                'thumbnail' => $request->thumbnail ?? '',
                 'slug' => $slugValue ?? '',
             ]);
 
@@ -151,38 +152,38 @@ class BlogController extends Controller
     {
         try {
             $updatedRow = Blog::find($request->updateId);
-            $imgpath = public_path('images/blog/');
-            if (empty($request->avatar)) {
-                $updateimage = $updatedRow->img;
-            } else {
-                $imagePath =  $imgpath . $updatedRow->img;
+            // $imgpath = public_path('images/blog/');
+            // if (empty($request->avatar)) {
+            //     $updateimage = $updatedRow->img;
+            // } else {
+            //     $imagePath =  $imgpath . $updatedRow->img;
                 
-                if (File::exists($imagePath)) {
-                    File::delete($imagePath);
-                }
-                $destinationPath = $imgpath;
-                $file = $request->avatar;
-                $fileName = time() . '.' . $file->clientExtension();
-                $file->move($destinationPath, $fileName);
-                $updateimage = $fileName;
+            //     if (File::exists($imagePath)) {
+            //         File::delete($imagePath);
+            //     }
+            //     $destinationPath = $imgpath;
+            //     $file = $request->avatar;
+            //     $fileName = time() . '.' . $file->clientExtension();
+            //     $file->move($destinationPath, $fileName);
+            //     $updateimage = $fileName;
     
                 // $imageUrl = 'images/blog/' . $updateimage;
                 // $updateimage = asset($imageUrl);
-            }
-            if (empty($request->thumbnail)) {
-                $updateThumbnail = $updatedRow->thumbnail;
-            } else {
-                $imagePath =  $imgpath . $updatedRow->thumbnail;
+            // }
+            // if (empty($request->thumbnail)) {
+            //     $updateThumbnail = $updatedRow->thumbnail;
+            // } else {
+            //     $imagePath =  $imgpath . $updatedRow->thumbnail;
                 
-                if (File::exists($imagePath)) {
-                    File::delete($imagePath);
-                }
-                $destinationPath = $imgpath;
-                $fileThumbnail = $request->thumbnail;
-                $fileThumbnailName = time() . '.' . $fileThumbnail->clientExtension();
-                $fileThumbnail->move($destinationPath, $fileThumbnailName);
-                $updateThumbnail = $fileThumbnailName;
-            }
+            //     if (File::exists($imagePath)) {
+            //         File::delete($imagePath);
+            //     }
+            //     $destinationPath = $imgpath;
+            //     $fileThumbnail = $request->thumbnail;
+            //     $fileThumbnailName = time() . '.' . $fileThumbnail->clientExtension();
+            //     $fileThumbnail->move($destinationPath, $fileThumbnailName);
+            //     $updateThumbnail = $fileThumbnailName;
+            // }
 
            
             $slug = $request->slug;
@@ -197,9 +198,11 @@ class BlogController extends Controller
                 'short_description' => $request->short_description ?? '',
                 'categories' => json_encode($request->categories),
                 'tags' => json_encode($request->tags),
-                'img' => $updateimage ?? '',
+                // 'img' => $updateimage ?? '',
+                'img' =>  json_encode($request->media),
                 'slug' => $slugValue ?? '',
-                'thumbnail' => $updateThumbnail ?? '',
+                // 'thumbnail' => $updateThumbnail ?? '',
+                'thumbnail' => $request->thumbnail ?? '',
             ]);
         } catch (Exception $e) {
             toastr()->error($e->getMessage());
@@ -215,13 +218,13 @@ class BlogController extends Controller
     public function destroy($id)
     {
         try {
-            $imgpath = public_path('images/blog/');
+            // $imgpath = public_path('images/blog/');
             $imgRecord = Blog::find($id);
-            $path = $imgpath . $imgRecord->img;
+            // $path = $imgpath . $imgRecord->img;
 
-            if (File::exists($path)) {
-                File::delete($path);
-            }
+            // if (File::exists($path)) {
+            //     File::delete($path);
+            // }
 
             $imgRecord->delete();
 

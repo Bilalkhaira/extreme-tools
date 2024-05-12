@@ -40,7 +40,7 @@
 		<!--end:Tab pane-->
 		<!--begin:Tab pane-->
 		<div class="tab-pane w-lg-600px" id="kt_app_header_menu_pages_account">
-			@include(config('settings.KT_THEME_LAYOUT_DIR').'/partials/sidebar-layout/header/_menu/__pages-account')
+			{{-- @include(config('settings.KT_THEME_LAYOUT_DIR').'/partials/sidebar-layout/header/_menu/__pages-account') --}}
 		</div>
 		<!--end:Tab pane-->
 		<!--begin:Tab pane-->

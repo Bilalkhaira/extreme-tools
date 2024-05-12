@@ -39,7 +39,7 @@
                         <!--begin::User form-->
                         <div id="kt_modal_update_user_user_info" class="collapse show">
                             <!--begin::Input group-->
-                            <div class="mb-7">
+                            {{-- <div class="mb-7">
                                 <!--begin::Label-->
                                 <label class="fs-6 fw-semibold mb-2">
                                     <span>Update Avatar</span>
@@ -102,6 +102,21 @@
                                     <!--end::Image input-->
                                 </div>
                                 <!--end::Image input wrapper-->
+                            </div> --}}
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <a type="button" class="addMediaBtn btn btn-primary theme_btn_bg btn-sm">
+                                        Profile Image
+                                    </a>
+                                    <div class="row appearMedia">
+                                        <div class="col-md-6 mb-5">
+                                            <div class="card">
+                                                <input type="hidden" name="thumbnail" id="" value="{{ $user->thumbnail ?? '' }}">
+                                                <img height="114px" src="{{ $user->avatar ?? '' }}" alt="">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                             <!--end::Input group-->
                             <!--begin::Input group-->

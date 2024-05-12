@@ -73,9 +73,9 @@
                     </div>
                     <div class="modal-body">
                         <div class="" id="ProductModalData">
-                            <div class="row">
+                            <div class="row mb-5">
                                 <div class="col-md-6">
-                                    <div class="mb-7">
+                                    {{-- <div class="mb-7">
                                         <label class="fs-6 fw-semibold mb-2">
                                             <span>Blog Image</span>
                                             <span class="ms-1" data-bs-toggle="tooltip"
@@ -117,10 +117,15 @@
                                                 
                                             </div>
                                         </div>
-                                    </div>
+                                    </div> --}}
+                                    <a type="button" class="multiMediaBtn btn btn-primary theme_btn_bg btn-sm">
+                                        Blog Media
+                                    </a>
+                                    <div class="row appeardMultiMedia"></div>
                                 </div>
                                 <div class="col-md-6">
-                                    <div class="mb-7">
+                                    
+                                    {{-- <div class="mb-7">
                                         <label class="fs-6 fw-semibold mb-2">
                                             <span>Blog Thumbnail</span>
                                             <span class="ms-1" data-bs-toggle="tooltip"
@@ -162,7 +167,11 @@
                                                 
                                             </div>
                                         </div>
-                                    </div>
+                                    </div> --}}
+                                    <a type="button" class="addMediaBtn btn btn-primary theme_btn_bg btn-sm">
+                                        Add Thumbnail
+                                    </a>
+                                    <div class="row appearMedia"></div>
                                 </div>
                             </div>
 
@@ -321,11 +330,21 @@
         </div>
     </div>
 
+    @include('pages.blogs.media.mediaModel')
+    @include('pages.blogs.media.multipleMediaModel')
+
     @push('scripts')
         {{ $dataTable->scripts() }}
 
 
         <script>
+             $('.addMediaBtn').click(function() {
+                $('#mediaModel').modal('show');
+            })
+            $('.multiMediaBtn').click(function() {
+                $('#multiMediaModel').modal('show');
+            })
+
             var input1 = document.getElementById("input1");
             var input2 = document.getElementById("input2");
 
@@ -351,6 +370,8 @@
 
             function AddProduct() {
                 $('#ProductModal').modal('show');
+                $('.appearMedia').html('');
+                $('.appeardMultiMedia').html('');
             }
 
             function EditBlog(anchor) {

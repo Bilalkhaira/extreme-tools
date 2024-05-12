@@ -12,7 +12,7 @@
         <div class="" id="ProductModalData">
             <div class="row">
                 <div class="col-md-6">
-                    <div class="mb-7">
+                    {{-- <div class="mb-7">
                         <label class="fs-6 fw-semibold mb-2">
                             <span>Blog Image</span>
                             <span class="ms-1" data-bs-toggle="tooltip" title="Allowed file types: png, jpg, jpeg.">
@@ -49,10 +49,27 @@
 
                             </div>
                         </div>
+                    </div> --}}
+                    <a type="button" class="multiMediaBtn btn btn-primary theme_btn_bg btn-sm">
+                        Blog Media
+                    </a>
+                    <div class="row">
+                        @if(!empty($blog->img))
+                        @foreach(json_decode($blog->img) as $img)
+                        <div class="col-md-4 mb-5 deleteMedia">
+                            <div class="card">
+                                <input type="hidden" name="media[]" id="" value="{{ $img ?? '' }}">
+                                <img height="114px" src="{{ $img }}" alt="">
+                                <span class="removeMediaDiv"><i class="fa fa-trash"></i></span>
+                            </div>
+                        </div>
+                        @endforeach
+                        @endif
                     </div>
+                    <div class="row appeardMultiMedia"></div>
                 </div>
                 <div class="col-md-6">
-                    <div class="mb-7">
+                    {{-- <div class="mb-7">
                         <label class="fs-6 fw-semibold mb-2">
                             <span>Blog Thumbnail</span>
                             <span class="ms-1" data-bs-toggle="tooltip"
@@ -92,6 +109,17 @@
 
                                 </label>
                                 
+                            </div>
+                        </div>
+                    </div> --}}
+                    <a type="button" class="addMediaBtn btn btn-primary theme_btn_bg btn-sm">
+                        Add Thumbnail
+                    </a>
+                    <div class="row appearMedia">
+                        <div class="col-md-6 mb-5">
+                            <div class="card">
+                                <input type="hidden" name="thumbnail" id="" value="{{ $blog->thumbnail ?? '' }}">
+                                <img height="114px" src="{{ $blog->thumbnail ?? '' }}" alt="">
                             </div>
                         </div>
                     </div>
@@ -169,6 +197,12 @@
 <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
 <script>
+     $('.addMediaBtn').click(function() {
+        $('#mediaModel').modal('show');
+    });
+    $('.multiMediaBtn').click(function() {
+        $('#multiMediaModel').modal('show');
+    })
     $('#summernote1').summernote({
         tabsize: 2,
         height: 120,
@@ -192,6 +226,25 @@
 
     new TomSelect('#select-tags1', {
         maxItems: 10,
+    });
+
+    $('.removeMediaDiv').click(function(event) {
+        event.preventDefault();
+        var form = $(this).closest('.deleteMedia');
+
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Yes, delete it!',
+            confirmButtonColor: '#dc3545',
+            cancelButtonText: 'Cancel'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                form.remove();
+            }
+        });
     });
 
 

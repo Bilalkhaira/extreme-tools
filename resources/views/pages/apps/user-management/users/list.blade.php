@@ -27,7 +27,7 @@
                 <!--begin::Toolbar-->
                 <div class="d-flex justify-content-end" data-kt-user-table-toolbar="base">
                     <!--begin::Add user-->
-                    <button type="button" class="btn btn-primary theme_btn_bg" data-bs-toggle="modal" data-bs-target="#kt_modal_add_user">
+                    <button type="button" class="btn btn-primary theme_btn_bg" data-bs-toggle="modal" data-bs-target="#kt_modal_add_user1">
                         {!! getIcon('plus', 'fs-2', '', 'i') !!}
                         Add User
                     </button>
@@ -53,6 +53,26 @@
         </div>
         <!--end::Card body-->
     </div>
+    {{-- <div id="EditModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+        aria-modal="true" aria-hidden="true" style="color: black;">
+        <div class="modal-dialog modal-lg" id="ProductModalDialog">
+            <div class="modal-content" id="BlogModalData"></div>
+        </div>
+    </div> --}}
+    <div class="modal fade" id="EditModal" tabindex="-1" aria-hidden="true" >
+        <div class="modal-dialog modal-dialog-centered mw-650px">
+            <div class="modal-content">
+                <div class="modal-header" id="kt_modal_add_user_header">
+                    <h2 class="fw-bold">Update User</h2>
+                    <div class="btn btn-icon btn-sm btn-active-icon-primary" data-bs-dismiss="modal" aria-label="Close">
+                        {!! getIcon('cross','fs-1') !!}
+                    </div>
+                </div>
+                <div class="modal-body px-5 my-7" id="BlogModalData">
+                </div>
+            </div>
+        </div>
+    </div>
 
     @push('scripts')
         {{ $dataTable->scripts() }}
@@ -66,6 +86,31 @@
                     window.LaravelDataTables['users-table'].ajax.reload();
                 });
             });
+
+            function EditBlog(anchor) {
+                $('#EditModal').modal('show');
+                var id = anchor.parentElement.querySelector("#blogUpdatedId").value;
+                $.ajaxSetup({
+                    headers: {
+                        "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+                    },
+                });
+
+                $.ajax({
+                    method: 'POST',
+                    url: "{{ route('adminUserEdit') }}",
+                    dataType: 'html',
+                    data: {
+                        id: id
+                    },
+                    success: function(result) {
+                        $('#BlogModalData').html('');
+                        if (result) {
+                            $('#BlogModalData').html(result);
+                        }
+                    },
+                });
+            }
         </script>
     @endpush
 
