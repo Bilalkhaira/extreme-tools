@@ -146,7 +146,7 @@
                     <label> Select Categories:</label>
                     <select id="select-categories1" name="categories[]" placeholder="Select courses..."
                         autocomplete="off" class="form-control" multiple>
-                        @if (!empty($categories))
+                        @if ($blog->categories != 'null')
                             @foreach ($categories as $category)
                                 <option @if (in_array($category->id, json_decode($blog->categories))) ? selected : '' @endif
                                     value="{{ $category->id }}">{{ $category->name }}</option>
@@ -159,7 +159,7 @@
                     <label> Select Tags:</label>
                     <select id="select-tags1" name="tags[]" placeholder="Select courses..." autocomplete="off"
                         class="form-control" multiple>
-                        @if (!empty($tags))
+                        @if ($blog->tags != 'null')
                             @foreach ($tags as $tag)
                                 <option @if (in_array($tag->id, json_decode($blog->tags))) ? selected : '' @endif
                                     value="{{ $tag->id }}">{{ $tag->name }}</option>

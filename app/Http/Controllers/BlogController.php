@@ -105,20 +105,24 @@ class BlogController extends Controller
         try {
             $blog = Blog::where('slug', $slug)->first();
             $tags = [];
-            foreach(json_decode($blog->tags) as $tagId)
-            {
-                $tag = Tag::find($tagId);
-                $tags[] = $tag->name;
+            
+            if($blog->tags != 'null') {
+                foreach(json_decode($blog->tags) as $tagId)
+                {
+                    $tag = Tag::find($tagId);
+                    $tags[] = $tag->name;
+                }
             }
             
             $categories = [];
-            foreach(json_decode($blog->categories) as $categoryId)
-            {
-                
-                $category = Category::find($categoryId);
-                $categories[] = $category->name;
-            }
-            
+            if($blog->categories != 'null') {
+                foreach(json_decode($blog->categories) as $categoryId)
+                {
+                    
+                    $category = Category::find($categoryId);
+                    $categories[] = $category->name;
+                }
+            }    
 
             return view('pages.blogs.show', compact(['blog', 'tags', 'categories']));
         } catch (Exception $e) {
