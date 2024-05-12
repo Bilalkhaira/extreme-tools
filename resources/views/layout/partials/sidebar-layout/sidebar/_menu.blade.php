@@ -59,7 +59,7 @@
 				</span>
 				<!--end:Menu link-->
 				<!--begin:Menu sub-->
-				<div class="menu-sub menu-sub-accordion">
+				<div class="menu-sub menu-sub-accordion {{ request()->routeIs('xtreme-tools-users.*') ? 'show' : '' }}">
 					<!--begin:Menu item-->
 					<div class="menu-item">
 						<!--begin:Menu link-->
@@ -122,7 +122,7 @@
 				</span>
 				<!--end:Menu link-->
 				<!--begin:Menu sub-->
-				<div class="menu-sub menu-sub-accordion">
+				<div class="menu-sub menu-sub-accordion {{ request()->routeIs('tags.*') ? 'show' : '' }} {{ request()->routeIs('categories.*') ? 'show' : '' }}  {{ request()->routeIs('blogs.*') ? 'show' : '' }}">
 					<!--begin:Menu item-->
 					<div class="menu-item">
 						<!--begin:Menu link-->
