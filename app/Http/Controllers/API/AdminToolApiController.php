@@ -16,15 +16,15 @@ class AdminToolApiController extends Controller
         try{
 
            $tools = AdminTool::all();
-           foreach($tools as $tool)
-           {
+        //    foreach($tools as $tool)
+        //    {
             // $blog['img'] = public_path('images/blog/').$blog->img;
             
-            if(!empty($tool['img'])){
-               $tool['img'] = 'https://admin.xtreme.tools/images/tools/'.$tool->img;
-            } 
+        //     if(!empty($tool['img'])){
+        //        $tool['img'] = 'https://admin.xtreme.tools/images/tools/'.$tool->img;
+        //     } 
             
-           }
+        //    }
 
             $success['status'] =  200;
             $success['data'] =  $tools;
@@ -41,9 +41,9 @@ class AdminToolApiController extends Controller
     {
         try{
             $tool = AdminTool::find($id);
-           if(!empty($tool['img'])){
-               $tool['img'] = 'https://admin.xtreme.tools/images/tool/'.$tool->img;
-           } 
+        //    if(!empty($tool['img'])){
+        //        $tool['img'] = 'https://admin.xtreme.tools/images/tool/'.$tool->img;
+        //    } 
            $success['status'] =  200;
            $success['data'] =  $tool;
            return response()->json($success);

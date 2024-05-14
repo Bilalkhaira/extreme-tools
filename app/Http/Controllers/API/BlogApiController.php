@@ -15,15 +15,15 @@ class BlogApiController extends Controller
         try{
 
            $blogs = Blog::all();
-           foreach($blogs as $blog)
-           {
+        //    foreach($blogs as $blog)
+        //    {
             // $blog['img'] = public_path('images/blog/').$blog->img;
             
-            if(!empty($blog['img'])){
-               $blog['img'] = 'https://admin.xtreme.tools/images/blog/'.$blog->img;
-            } 
+        //     if(!empty($blog['img'])){
+        //        $blog['img'] = 'https://admin.xtreme.tools/images/blog/'.$blog->img;
+        //     } 
             
-           }
+        //    }
 
             // return response()->json($blogs);
             $success['status'] =  200;
@@ -41,9 +41,9 @@ class BlogApiController extends Controller
     {
         try{
            $blog = Blog::find($id);
-           if(!empty($blog['img'])){
-               $blog['img'] = 'https://admin.xtreme.tools/images/blog/'.$blog->img;
-           } 
+        //    if(!empty($blog['img'])){
+        //        $blog['img'] = 'https://admin.xtreme.tools/images/blog/'.$blog->img;
+        //    } 
         //    if(!empty($blog)){
         //          return response()->json($blog);
         //    } else {
