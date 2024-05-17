@@ -120,13 +120,11 @@
                                         <div class="col-md-9">
                                             <div class="row">
                                                 @if(!empty($blog->img))
-                                                @foreach(json_decode($blog->img) as $img)
                                                 <div class="col-md-3 mb-5 deleteMedia">
                                                     <div class="card">
-                                                        <img height="114px" src="{{ $img }}" alt="">
+                                                        <img height="114px" src="{{ $blog->img ?? '' }}" alt="">
                                                     </div>
                                                 </div>
-                                                @endforeach
                                                 @endif
                                             </div>
                                         </div>

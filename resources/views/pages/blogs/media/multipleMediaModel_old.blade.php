@@ -53,13 +53,22 @@
 <script>
     $(document).ready(function() {
         $('.media_model_card1').click(function() {
-            $('.mediaCheckbox').prop('checked', false);
-            $('.media_model_card1').removeClass('mediaActive');
+            // $('.mediaCheckbox').prop('checked', false);
+            // $('.media_model_card1').removeClass('mediaActive');
             var checkbox = $(this).closest('div').find('input');
-            checkbox.prop('checked', true);
-            $(this).closest('div').addClass('mediaActive');
-            var appendData = '<div class="col-md-4 mb-5"><div class="card"><input type="hidden" name="media" id="" value="'+ checkbox.val() +'"><img height="114px" src="'+ checkbox.val() +'" alt=""></div></div>';
-            $('.appeardMultiMedia').html(appendData);
+            if ($(this).closest('div').hasClass('mediaActive')) {
+                $(this).closest('div').removeClass('mediaActive');
+                checkbox.prop('checked', false);
+
+                var inputElement = $('input[type="hidden"][value="' + checkbox.val() + '"]');
+                inputElement.closest('.col-md-4').remove();
+            } else {
+                checkbox.prop('checked', true);
+                $(this).closest('div').addClass('mediaActive');
+                var appendData = '<div class="col-md-4 mb-5"><div class="card"><input type="hidden" name="media[]" id="" value="'+ checkbox.val() +'"><img height="114px" src="'+ checkbox.val() +'" alt=""></div></div>';
+                $('.appeardMultiMedia').append(appendData);
+                // $('.appeardMultiMedia').html(appendData);
+            }
         });
     });
         $('.clearMedia').click(function() {

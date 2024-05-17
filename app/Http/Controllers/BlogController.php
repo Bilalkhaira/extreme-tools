@@ -82,7 +82,7 @@ class BlogController extends Controller
                 'categories' => json_encode($request->categories),
                 'tags' => json_encode($request->tags),
                 // 'img' => $fileName ?? '',
-                'img' =>  json_encode($request->media),
+                'img' =>  $request->media ?? '',
                 'thumbnail' => $request->thumbnail ?? '',
                 'slug' => $slugValue ?? '',
             ]);
@@ -203,7 +203,7 @@ class BlogController extends Controller
                 'categories' => json_encode($request->categories),
                 'tags' => json_encode($request->tags),
                 // 'img' => $updateimage ?? '',
-                'img' =>  json_encode($request->media),
+                'img' =>  $request->media,
                 'slug' => $slugValue ?? '',
                 // 'thumbnail' => $updateThumbnail ?? '',
                 'thumbnail' => $request->thumbnail ?? '',

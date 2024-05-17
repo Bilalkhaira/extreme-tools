@@ -53,7 +53,8 @@
                     <a type="button" class="multiMediaBtn btn btn-primary theme_btn_bg btn-sm">
                         Blog Media
                     </a>
-                    <div class="row">
+                    {{--  
+                    <div class="row"> 
                         @if(!empty($blog->img))
                         @foreach(json_decode($blog->img) as $img)
                         <div class="col-md-4 mb-5 deleteMedia">
@@ -66,7 +67,17 @@
                         @endforeach
                         @endif
                     </div>
-                    <div class="row appeardMultiMedia"></div>
+                    --}}
+                    <div class="row appeardMultiMedia">
+                        @if(!empty($blog->img))
+                        <div class="col-md-4 mb-5">
+                            <div class="card">
+                                <input type="hidden" name="media" id="" value="{{ $blog->img ?? '' }}">
+                                <img height="114px" src="{{ $blog->img ?? '' }}" alt="">
+                            </div>
+                        </div>
+                        @endif
+                    </div>
                 </div>
                 <div class="col-md-6">
                     {{-- <div class="mb-7">
