@@ -59,7 +59,7 @@
 
                     <!--begin::Text-->
                     <div class="d-none d-lg-block text-white fs-base text-center">
-                        Are you yeady to take your projects to new heights? <br>At Xtreme Tool, we're dedicated to empowering <br> innovation and unleashing your potential.
+                        Are you ready to take your projects to new heights? <br>At Xtreme Tools, we're dedicated to empowering <br> innovation and unleashing your potential.
                     </div>
                     <!--end::Text-->
                 </div>
