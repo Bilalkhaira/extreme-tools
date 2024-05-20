@@ -117,6 +117,7 @@
                                         Add Media
                                     </a>
                                     <div class="row appearMedia"></div>
+                                    <p class="small">Media size will be 960/460</p>
                                 </div>
                             </div>
 
@@ -227,6 +228,7 @@
                                         Add Media
                                     </a>
                                     <div class="row appearMedia"></div>
+                                    <p class="small">Media size will be 960/460</p>
                                 </div>
                             </div>
 

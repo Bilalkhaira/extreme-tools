@@ -78,6 +78,7 @@
                         </div>
                         @endif
                     </div>
+                    <p class="small">Media size will be 960/460</p>
                 </div>
                 <div class="col-md-6">
                     {{-- <div class="mb-7">
@@ -134,6 +135,7 @@
                             </div>
                         </div>
                     </div>
+                    <p class="small">Thumbnail size will be 310/180</p>
                 </div>
             </div>
 

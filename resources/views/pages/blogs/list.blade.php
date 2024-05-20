@@ -122,6 +122,7 @@
                                         Blog Media
                                     </a>
                                     <div class="row appeardMultiMedia"></div>
+                                    <p class="small">Media size will be 960/460</p>
                                 </div>
                                 <div class="col-md-6">
                                     
@@ -172,6 +173,7 @@
                                         Add Thumbnail
                                     </a>
                                     <div class="row appearMedia"></div>
+                                    <p class="small">Thumbnail size will be 310/180</p>
                                 </div>
                             </div>
 
