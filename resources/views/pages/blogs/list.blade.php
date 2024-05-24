@@ -352,9 +352,40 @@
 
             input1.addEventListener("input", function() {
                 var valueWithSpaces = input1.value;
-                var modifiedValue = valueWithSpaces.replace(/\s+/g, '-').toLowerCase();
-                input2.value = modifiedValue;
+                // var modifiedValue = valueWithSpaces.replace(/\s+/g, '-').toLowerCase();
+                // input2.value = modifiedValue;
+                var slug = generateSlug(valueWithSpaces);
+                input2.value = slug;
             });
+
+            function generateSlug(value) {
+                return value
+                    .toLowerCase() // Convert to lowercase
+                    .replace(/\s+/g, '-') // Replace spaces with hyphens
+                    .replace(/[^\w\-]+/g, '') // Remove all non-word characters except hyphens
+                    .replace(/\-\-+/g, '-') // Replace multiple hyphens with a single hyphen
+                    .replace(/^-+/, '') // Trim hyphens from the start
+                    .replace(/-+$/, ''); // Trim hyphens from the end
+            }
+
+            function preventSpecialCharacters(inputElement) {
+                inputElement.addEventListener('keypress', function(event) {
+                    var charCode = event.charCode;
+                    if (!(
+                        (charCode >= 48 && charCode <= 57) ||  // Numbers 0-9
+                        (charCode >= 65 && charCode <= 90) ||  // Uppercase letters A-Z
+                        (charCode >= 97 && charCode <= 122) || // Lowercase letters a-z
+                        charCode === 32 || // Space
+                        charCode === 45 
+                    )) {
+                        event.preventDefault();
+                    }
+                });
+            }
+
+            // Example usage:
+            var titleInput = document.getElementById('input2');
+            preventSpecialCharacters(titleInput);
 
 
             document.getElementById('mySearchInput').addEventListener('keyup', function() {
